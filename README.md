@@ -17,15 +17,13 @@ Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES6 do n
 O código em si não está dificil, não gosto de coisa muito bagunçada mas também estava com certo preguiça, então arrumei o código na medida do possivel.
 Bom, data possui a conexão com o banco, model a estrutura do banco `classes` e a service são as apis em si.
 
-├── README.md
-|   start.js
-|   package.json
-└── src
-
-
-    ├── model        
-    ├── service        
-    └── data 
+    ├── README.md
+    |   start.js
+    |   package.json
+    └── src
+        ├── model        
+        ├── service        
+        └── data 
     
 
 # Database:
@@ -50,5 +48,5 @@ Bom, eu fiz isso aqui de algumas formas, vou especificar!
 
 Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
 <p align="center">
-    <img src="https://imgur.com/a/X4xHalu" alt="/plan-update"/>
+    <img src="[https://imgur.com/a/X4xHalu](https://i.imgur.com/Exf6Cm1.png)" alt="/plan-update"/>
 </p>
