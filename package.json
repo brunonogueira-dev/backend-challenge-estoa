@@ -1,0 +1,27 @@
+{
+    "name": "backend-challenge-estoa",
+    "version": "1.0.0",
+    "description": "Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor Backend você é.",
+    "main": "start.js",
+    "scripts": {
+        "start": "nodemon start",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Apocryphoon/backend-challenge-estoa.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Apocryphoon/backend-challenge-estoa/issues"
+    },
+    "homepage": "https://github.com/Apocryphoon/backend-challenge-estoa#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "mysql2": "^3.1.2",
+        "nodemon": "^2.0.20",
+        "sequelize": "^6.28.0"
+    }
+}
