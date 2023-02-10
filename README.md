@@ -10,7 +10,7 @@ Então, eu recebi o desafio quarta-feira (08/02) de manhã, acabei tendo muitas 
 - mysql2
 - sequelize
 
-Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES do node 6 para usar o `import and export` não usei alguma especifica, consegui prosseguir fazendo de outra forma, então somente o básico já resolve `npm install --save {package}`.
+Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES6 do node alguma versão especifica, consegui prosseguir fazendo de outra forma, então somente o básico já resolve `npm install --save {package}`.
 
 # Database:
 
