@@ -48,4 +48,4 @@ Bom, eu fiz isso aqui de algumas formas, vou especificar!
 
 Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
 
-<img src="https://i.imgur.com/Exf6Cm1.png" alt="/plan-update" height="600" width="300"/>
+<img src="https://i.imgur.com/Exf6Cm1.png" alt="/plan-update"/>
