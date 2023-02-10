@@ -41,16 +41,19 @@ Como foi solicitado as entidades plan e user possuem crud completo ou quase isso
 
 Bom, eu fiz isso aqui de algumas formas, vou especificar! 
 
-*Rotas de consulta, não é necessario input*
+**Rotas de consulta, não é necessario input**
 - `/users` - Retorna todos as informações dos usúario.
 - `/plan` - Retorna todas as informações dos planos.
 - `/sub` -  Retorna todas as informações das assinaturas.
 
-*Rotas aonde é necessario incremento de body (json):*
+**Rotas aonde é necessario incremento de body (json):**
 - `/user-add` - Rota para adiciona usúarios (body).
 - `/plan-add` - Rota para adicionar plano (body).
 
-*Rotas aonde são necessario params:*
+**Rotas aonde são necessario params:**
+
+Isso quer dizer que para fazer uso é necessario fazer uso da opção params, [desta forma](https://i.imgur.com/Exf6Cm1.png)
+
 - `/user-search` - Retorna um usúario específico
 - `/plan-search` - Retorna um plano específico
 
@@ -59,7 +62,3 @@ Bom, eu fiz isso aqui de algumas formas, vou especificar!
 
 - `/user-update` - Atualiza um usúario específico
 - `/plan-update` - Atualiza um plano específico
-
-Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
-
-<img src="https://i.imgur.com/Exf6Cm1.png" alt="/plan-update"/>
