@@ -15,7 +15,8 @@ Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES6 do n
 # Handle:
 
 O código em si não está dificil, não gosto de coisa muito bagunçada mas também estava com certo preguiça, então arrumei o código na medida do possivel.
-Bom, data possui a conexão com o banco, model a estrutura do banco `classes` e a service são as apis em si.
+<br>
+Bom, data possui a conexão com o banco, model a estrutura do banco, as `classes` e a service são as apis em si.
 
     ├── README.md
     |   start.js
@@ -40,16 +41,24 @@ Como foi solicitado as entidades plan e user possuem crud completo ou quase isso
 
 Bom, eu fiz isso aqui de algumas formas, vou especificar! 
 
-*Rotas usúario aonde são necessario params:*
-<!-- - `/users` -->
-- `/user-search`
-- `/plan-search`
+*Rotas de consulta, não é necessario input*
+- `/users` - Retorna todos as informações dos usúario.
+- `/plan` - Retorna todas as informações dos planos.
+- `/sub` -  Retorna todas as informações das assinaturas.
 
-- `/user-delete`
-- `/plan-delete`
+*Rotas aonde é necessario incremento de body (json):*
+- `/user-add` - Rota para adiciona usúarios (body).
+- `/plan-add` - Rota para adicionar plano (body).
 
-- `/user-update`
-- `/plan-update`
+*Rotas aonde são necessario params:*
+- `/user-search` - Retorna um usúario específico
+- `/plan-search` - Retorna um plano específico
+
+- `/user-delete` - Deleta um usúario específico
+- `/plan-delete` - Deleta um plano específico
+
+- `/user-update` - Atualiza um usúario específico
+- `/plan-update` - Atualiza um plano específico
 
 Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
 
