@@ -47,6 +47,4 @@ Bom, eu fiz isso aqui de algumas formas, vou especificar!
 - `/user-update`
 
 Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
-<p align="center">
-    <img src="[https://imgur.com/a/X4xHalu](https://i.imgur.com/Exf6Cm1.png)" alt="/plan-update"/>
-</p>
+<img src="https://i.imgur.com/Exf6Cm1.png" alt="/plan-update"/>
