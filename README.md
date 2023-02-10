@@ -40,11 +40,16 @@ Como foi solicitado as entidades plan e user possuem crud completo ou quase isso
 
 Bom, eu fiz isso aqui de algumas formas, vou especificar! 
 
-*Rotas usúario aonde são necessario params:*
+*Rotas aonde são necessario params:*
 <!-- - `/users` -->
 - `/user-search`
+- `/plan-search`
+
 - `/user-delete`
+- `/plan-delete`
+
 - `/user-update`
+- `/plan-update`
 
 Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
 <p align="center">
