@@ -15,15 +15,15 @@ Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES6 do n
 # Handle:
 
 O código em si não está dificil, não gosto de coisa muito bagunçada mas também estava com certo preguiça, então arrumei o código na medida do possivel.
-Bom, data possui a conexão com o banco, model a estrutura do banco `classes` e a service são as apis em si.
+<br>
+Bom, data possui a conexão com o banco, model a estrutura do banco, as `classes` e a service são as apis em si.
 
-├── README.md
-|   start.js
-|   package.json
-└── src
-    ├── model        
-    ├── service        
-    └── data        
+    ├── README.md
+    |   start.js
+    └── src
+        ├── model        
+        ├── service        
+        └── data 
     
 
 # Database:
@@ -37,8 +37,9 @@ Bom, pensei em fazer um swagger para mostrar as rotas mas já perdi o limite de 
 Como foi solicitado as entidades plan e user possuem crud completo ou quase isso, me informe caso falte algo.
 
 # Routes
+Bom, eu fiz isso aqui de algumas formas, vou mostrar a seguir! 
 
-Bom, eu fiz isso aqui de algumas formas, vou especificar! 
+**Rotas de consulta, não é necessario qualquer tipo de input:** [Desta forma](https://i.imgur.com/DadcqTO.png)
 
 *Rotas aonde são necessario params:*
 <!-- - `/users` -->
@@ -51,7 +52,18 @@ Bom, eu fiz isso aqui de algumas formas, vou especificar!
 - `/user-update`
 - `/plan-update`
 
-Isso quer dizer que para fazer uso é necessario fazer uso da opção params, desta forma:
-<p align="center">
-    <img src="https://prnt.sc/fiGjl1CT3tQZ" alt="/plan-update"/>
-</p>
+**Rotas aonde é necessario incremento de body (json):** [Desta forma](https://i.imgur.com/0KmTzRI.png)
+
+- `/user-add` - Rota para adiciona usúarios (body).
+- `/plan-add` - Rota para adicionar plano (body).
+
+**Rotas aonde são necessario params:** [Desta forma](https://i.imgur.com/Exf6Cm1.png)
+
+- `/user-search` - Retorna um usúario específico
+- `/plan-search` - Retorna um plano específico
+
+- `/user-delete` - Deleta um usúario específico
+- `/plan-delete` - Deleta um plano específico
+
+- `/user-update` - Atualiza um usúario específico
+- `/plan-update` - Atualiza um plano específico
