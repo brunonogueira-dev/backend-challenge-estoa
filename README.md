@@ -16,7 +16,7 @@ Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES6 do n
 
 O código em si não está dificil, não gosto de coisa muito bagunçada mas também estava com certo preguiça, então arrumei o código na medida do possivel.
 <br>
-Bom, data possui a conexão com o banco, model a estrutura do banco, as `classes` e a service são as apis em si.
+Bom, data possui a conexão com o banco, model a estrutura do banco, as "classes" e a service são as apis em si.
 
     ├── README.md
     |   start.js
