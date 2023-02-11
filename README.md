@@ -39,21 +39,18 @@ Como foi solicitado as entidades plan e user possuem crud completo ou quase isso
 # Routes
 Bom, eu fiz isso aqui de algumas formas, vou mostrar a seguir! 
 
-**Rotas de consulta, não é necessario qualquer tipo de input**
-Essas rotas podem ser usadas sem qualquer input, [desta forma](https://i.imgur.com/DadcqTO.png)
+**Rotas de consulta, não é necessario qualquer tipo de input:** [Desta forma](https://i.imgur.com/DadcqTO.png)
 
 - `/users` - Retorna todos as informações dos usúario.
 - `/plan` - Retorna todas as informações dos planos.
 - `/sub` -  Retorna todas as informações das assinaturas.
 
-**Rotas aonde é necessario incremento de body (json):**
-É necessario fazer uso do body, [desta forma](https://i.imgur.com/0KmTzRI.png)
+**Rotas aonde é necessario incremento de body (json):** [Desta forma](https://i.imgur.com/0KmTzRI.png)
 
 - `/user-add` - Rota para adiciona usúarios (body).
 - `/plan-add` - Rota para adicionar plano (body).
 
-**Rotas aonde são necessario params:**
-É necessario fazer uso da opção params, [desta forma](https://i.imgur.com/Exf6Cm1.png)
+**Rotas aonde são necessario params:** [Desta forma](https://i.imgur.com/Exf6Cm1.png)
 
 - `/user-search` - Retorna um usúario específico
 - `/plan-search` - Retorna um plano específico
