@@ -20,7 +20,6 @@ Bom, data possui a conexão com o banco, model a estrutura do banco, as `classes
 
     ├── README.md
     |   start.js
-    |   package.json
     └── src
         ├── model        
         ├── service        
@@ -38,21 +37,23 @@ Bom, pensei em fazer um swagger para mostrar as rotas mas já perdi o limite de 
 Como foi solicitado as entidades plan e user possuem crud completo ou quase isso, me informe caso falte algo.
 
 # Routes
+Bom, eu fiz isso aqui de algumas formas, vou mostrar a seguir! 
 
-Bom, eu fiz isso aqui de algumas formas, vou especificar! 
+**Rotas de consulta, não é necessario qualquer tipo de input**
+Essas rotas podem ser usadas sem qualquer input, [desta forma](https://i.imgur.com/DadcqTO.png)
 
-**Rotas de consulta, não é necessario input**
 - `/users` - Retorna todos as informações dos usúario.
 - `/plan` - Retorna todas as informações dos planos.
 - `/sub` -  Retorna todas as informações das assinaturas.
 
 **Rotas aonde é necessario incremento de body (json):**
+É necessario fazer uso do body, [desta forma](https://i.imgur.com/0KmTzRI.png)
+
 - `/user-add` - Rota para adiciona usúarios (body).
 - `/plan-add` - Rota para adicionar plano (body).
 
 **Rotas aonde são necessario params:**
-
-Isso quer dizer que para fazer uso é necessario fazer uso da opção params, [desta forma](https://i.imgur.com/Exf6Cm1.png)
+É necessario fazer uso da opção params, [desta forma](https://i.imgur.com/Exf6Cm1.png)
 
 - `/user-search` - Retorna um usúario específico
 - `/plan-search` - Retorna um plano específico
