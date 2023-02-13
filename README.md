@@ -1,42 +1,69 @@
-# Desafio Backend da Estoa
+# 🚀 Desafio Back-end da Estoa
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor Backend você é.
+Olá galera, bom, esse reade.me pode ficar um pouco extenso, desculpe...
 
-Provavelmente você já está participando do nosso processo de contratação, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+Então, eu recebi o desafio quarta-feira (08/02) de manhã, acabei tendo muitas entrevista e um imprevisto aonde não consegui realizar o teste e confesso que caiu no esquecimento na quinta-feira (09/02) então, acabei fazendo hoje, desculpa.
 
+# Packages:
+- cors
+- express
+- mysql2
+- sequelize
 
-## Sobre o desafio
+Em relação as versões, bom mesmo tendo alguns problemas com o modulo ES6 do node alguma versão especifica, consegui prosseguir fazendo de outra forma, então somente o básico já resolve `npm install --save {package}`.
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+# Handle:
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+O código em si não está dificil, não gosto de coisa muito bagunçada mas também estava com certo preguiça, então arrumei o código na medida do possivel.
+<br>
+Bom, data possui a conexão com o banco, model a estrutura do banco, as "classes" e a service são as apis em si.
 
-O que nós esperamos aprender de você com o desafio:
+    ├── README.md
+    |   start.js
+    └── src
+        ├── model        
+        ├── service        
+        └── data 
+    
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+# Database:
 
-O que nós esperamos que você aprenda sobre a Estoa:
+Em relação ao banco, syntax, .sql caso necessario me informe que eu adiciono ao diretorio raiz, mas sinceramente, não acho necessario já que fiz uso do ORM (Sequelize) então, é possivel obter o banco simplemente rodando, ainda sim. Eu coloquei o banco na azure então, você pode simplemente roda-lo sem se preocupar com o db. <img src="https://discords.com/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Femojis%2F997166573141905418.png&w=48&q=75" height="16" width="16"/>
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
+# Observação
 
-## Próximos passos
+Bom, pensei em fazer um swagger para mostrar as rotas mas já perdi o limite de 14 dias free então, vai na print. Como eu não sabia como era para ser feito o uso dos parametros, usei 2 opções de 3. Sendo elas por: Body e usando o params, aqui no meu caso eu usei o postman, mas fique a vontade! <img src="https://discords.com/_next/image?url=https%3A%2F%2Fcdn.discordapp.com%2Femojis%2F997166573141905418.png&w=48&q=75" height="16" width="16"/>
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Preferencialmente utilize uma _branch_ chamada `desafio` ou com o seu nome (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
+Como foi solicitado as entidades plan e user possuem crud completo ou quase isso, me informe caso falte algo.
 
-## Considerações
+# Routes
+Bom, eu fiz isso aqui de algumas formas, vou mostrar a seguir! 
 
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas, porém é de suma importância que use React.js, faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
-- Também leve em consideração que estamos availando como será o seu modo de trabalho no nosso dia a dia. Então, use as melhores práticas de semântica, estruturação, legibilidade e componentização.
+**Rotas de consulta, não é necessario qualquer tipo de input:** [Desta forma](https://i.imgur.com/DadcqTO.png)
 
-## Dúvidas?
+*Rotas aonde são necessario params:*
+<!-- - `/users` -->
+- `/user-search`
+- `/plan-search`
 
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
+- `/user-delete`
+- `/plan-delete`
 
-**Boa sorte!**
+- `/user-update`
+- `/plan-update`
+
+**Rotas aonde é necessario incremento de body (json):** [Desta forma](https://i.imgur.com/0KmTzRI.png)
+
+- `/user-add` - Rota para adiciona usúarios (body).
+- `/plan-add` - Rota para adicionar plano (body).
+
+**Rotas aonde são necessario params:** [Desta forma](https://i.imgur.com/Exf6Cm1.png)
+
+- `/user-search` - Retorna um usúario específico
+- `/plan-search` - Retorna um plano específico
+
+- `/user-delete` - Deleta um usúario específico
+- `/plan-delete` - Deleta um plano específico
+
+- `/user-update` - Atualiza um usúario específico
+- `/plan-update` - Atualiza um plano específico
