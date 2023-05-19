@@ -7,8 +7,7 @@ module.exports = {
         field: 'id_plano',
         references: { model: 'planos', key: 'id' },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
+        onDelete: 'CASCADE' },
       idUsuario: { allowNull: false,
         type: Sequelize.INTEGER,
         field: 'id_usuario',
@@ -17,6 +16,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       dataDeCriacao: { type: Sequelize.DATE },
+      dataDeExpiracao: { type: Sequelize.DATE },
     });
   },
 
