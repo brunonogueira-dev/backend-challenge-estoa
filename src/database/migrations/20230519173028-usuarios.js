@@ -11,7 +11,7 @@ module.exports = {
       email: { type: Sequelize.STRING },
       senha: { type: Sequelize.STRING },
       tipo: { type: Sequelize.STRING },
-      dataDeCriacao: { type: Sequelize.DATE },
+      createdAt: { allowNull: false, type: Sequelize.DATE, field: 'created_at' },
     });
   },
 

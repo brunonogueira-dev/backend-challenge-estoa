@@ -10,7 +10,7 @@ module.exports = {
       nome: { type: Sequelize.STRING },
       preco: { type: Sequelize.INTEGER },
       periodo: { type: Sequelize.INTEGER },
-      dataDeCriacao: { type: Sequelize.DATE },
+      createdAt: { allowNull: false, type: Sequelize.DATE, field: 'created_at' },
     });
   },
 

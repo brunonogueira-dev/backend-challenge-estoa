@@ -1,5 +1,5 @@
 module.exports = {
-  up: async (queryInterface, _Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
       'planos',
       [{
@@ -7,13 +7,13 @@ module.exports = {
         nome: 'Grátis',
         preco: 0,
         periodo: 1,
-        dataDeCriacao: '2021-04-12' },
+        created_at: Sequelize.literal('CURRENT_TIMESTAMP') },
       {
         id: 2,
         nome: 'Básico',
         preco: 1000,
         periodo: 12,
-        dataDeCriacao: '2021-04-12' },
+        created_at: Sequelize.literal('CURRENT_TIMESTAMP') },
       ],
 
       { timestamps: true },

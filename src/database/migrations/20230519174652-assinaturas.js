@@ -15,8 +15,8 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      dataDeCriacao: { type: Sequelize.DATE },
-      dataDeExpiracao: { type: Sequelize.DATE },
+      createdAt: { allowNull: false, type: Sequelize.DATE, field: 'created_at' },
+      dataDeExpiracao: { type: Sequelize.DATE, field: 'data_de_expiracao' },
     });
   },
 
