@@ -17,16 +17,21 @@ class PlanoService {
     // eslint-disable-next-line class-methods-use-this
     listarPlanos() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield plano_model_1.default.findAll();
-                // const tes = 'teste';
-                console.log(response);
-                return response;
-            }
-            catch (err) {
-                console.log(err);
-            }
-            return [];
+            const response = yield plano_model_1.default.findAll();
+            response.forEach((r) => {
+                // eslint-disable-next-line no-param-reassign
+                r.preco /= 100;
+            });
+            return response;
+        });
+    }
+    // eslint-disable-next-line class-methods-use-this
+    addPlano(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(data);
+            const { nome, periodo, preco } = data;
+            const { id } = yield plano_model_1.default.create({ nome, periodo, preco: preco * 100 });
+            return id;
         });
     }
 }

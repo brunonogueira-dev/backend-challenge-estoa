@@ -23,5 +23,12 @@ class PlanoController {
             return res.status(200).json({ lista });
         });
     }
+    addPlano(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { nome, periodo, preco } = req.body;
+            const id = yield this.service.addPlano({ nome, periodo, preco });
+            return res.status(201).json({ id });
+        });
+    }
 }
 exports.default = PlanoController;

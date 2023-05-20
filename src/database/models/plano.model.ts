@@ -22,6 +22,7 @@ PlanoModel.init({
   },
   nome: { type: STRING(30), allowNull: false },
   periodo: { type: INTEGER },
+  preco: { type: INTEGER },
   createdAt: { type: DATE, allowNull: false },
 }, { underscored: true,
   sequelize: db,

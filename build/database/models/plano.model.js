@@ -16,14 +16,12 @@ PlanoModel.init({
     },
     nome: { type: (0, sequelize_1.STRING)(30), allowNull: false },
     periodo: { type: sequelize_1.INTEGER },
+    preco: { type: sequelize_1.INTEGER },
     createdAt: { type: sequelize_1.DATE, allowNull: false },
 }, { underscored: true,
     sequelize: _1.default,
     modelName: 'planos',
     freezeTableName: true,
-    timestamps: true });
-// PlanoModel.hasMany(AssinaturaModel, {
-//   foreignKey: 'idPlano',
-//   as: 'assinaturas',  
-// });
+    timestamps: true,
+    updatedAt: false });
 exports.default = PlanoModel;
