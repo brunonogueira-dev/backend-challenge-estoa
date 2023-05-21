@@ -30,7 +30,7 @@ export function typesMiddleware(req: Request, res: Response, next: NextFunction)
   
   if (typeof (nome) !== 'string') {
     return res.status(404)
-      .json({ message: 'As propiedade "nome" deve conter uma string' });
+      .json({ message: 'A propiedade "nome" deve conter uma string' });
   }
   return next();
 }
