@@ -1,5 +1,7 @@
 import AssinaturaModel from '../database/models/assinatura.model';
+import PlanoModel from '../database/models/plano.model';
 import UsuarioModel from '../database/models/usuario.model';
+import { IPlano } from '../interfaces/IPlano';
 import { IUsuario } from '../interfaces/IUsuario';
 import { IUsuarioData } from '../interfaces/IUsuarioData';
 
@@ -21,10 +23,18 @@ export default class UsuarioService {
   }
 
   public async addUsuario(data: IUsuarioData): Promise<number> {
+    // const { id } = await UsuarioModel.create({ ...data, tipo: 'Grátis' });
+    // const date = new Date();
+    // const dataDeExpiracao = new Date(date.setMonth(date.getMonth() + 1));
+    // await AssinaturaModel.create({ idPlano: 1, idUsuario: id, dataDeExpiracao });
+    // return id;
     const { id } = await UsuarioModel.create({ ...data, tipo: 'Grátis' });
-    const date = new Date();
-    const dataDeExpiracao = new Date(date.setMonth(date.getMonth() + 1));
-    await AssinaturaModel.create({ idPlano: 1, idUsuario: id, dataDeExpiracao });
+    const response: IPlano | null = await PlanoModel.findOne({ where: { nome: 'Grátis' } });
+    if (response) {
+      const date = new Date();
+      const dataDeExpiracao = new Date(date.setMonth(date.getMonth() + response.periodo));
+      await AssinaturaModel.create({ idPlano: response.id, idUsuario: id, dataDeExpiracao });
+    }
     return id;
   }
 
