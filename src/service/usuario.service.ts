@@ -1,6 +1,9 @@
+/* eslint-disable max-lines-per-function */
+
 import AssinaturaModel from '../database/models/assinatura.model';
 import PlanoModel from '../database/models/plano.model';
 import UsuarioModel from '../database/models/usuario.model';
+import { IAssinatura } from '../interfaces/IAssinatura';
 import { IPlano } from '../interfaces/IPlano';
 import { IUsuario } from '../interfaces/IUsuario';
 import { IUsuarioData } from '../interfaces/IUsuarioData';
@@ -49,12 +52,29 @@ export default class UsuarioService {
 
   public async atualizaUsuario(id: number, data: IUsuarioData): Promise<string | null> {
     const response = await UsuarioModel.update({ ...data }, { where: { id } });
-    console.log(data);
+    const plano: IPlano | null = await PlanoModel.findOne({ where: { nome: data.tipo } });
     
-    if (response) {      
+    if (plano) {
+      await this.atualizaAssinatura(plano, id);
+    }
+    if (response[0] !== 0) {      
       const message = 'Atualizado com sucesso';
       return message;
     }
     return null;
+  }
+
+  public async atualizaAssinatura(plano: IPlano, id: number) {
+    const assinatura: IAssinatura | null = await AssinaturaModel
+      .findOne({ where: { idUsuario: id } });
+    
+    if (assinatura) {
+      await AssinaturaModel.update(
+        { idPlano: plano.id,
+          dataDeExpiracao: new Date(assinatura.dataDeExpiracao
+            .setMonth(assinatura.dataDeExpiracao.getMonth() + plano.periodo)) }, 
+        { where: { idUsuario: id } },
+      );
+    }
   }
 }

@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import UsuarioController from '../controller/usuario.controller';
 import { existeMiddleware, typesMiddleware } from '../middlewares/usuario.middleware';
+import tipoMiddleware from '../middlewares/usuario.tipo.middleware';
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.put(
   '/usuarios/:id', 
   existeMiddleware, 
   typesMiddleware,
+  tipoMiddleware,
   controller.atualizaUsuario.bind(controller),
 );
 

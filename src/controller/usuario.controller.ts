@@ -36,6 +36,8 @@ export default class UsuarioController {
     const data = req.body;
     const nId = Number(id);
     const message = await this.service.atualizaUsuario(nId, data);
+    // console.log(message, 'aqui');
+    
     if (message) {
       return res.status(200).json({ message });
     }
