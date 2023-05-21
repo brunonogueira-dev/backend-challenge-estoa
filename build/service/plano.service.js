@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable class-methods-use-this */
 const plano_model_1 = __importDefault(require("../database/models/plano.model"));
 class PlanoService {
-    // eslint-disable-next-line class-methods-use-this
     listarPlanos() {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield plano_model_1.default.findAll();
@@ -25,13 +25,44 @@ class PlanoService {
             return response;
         });
     }
-    // eslint-disable-next-line class-methods-use-this
+    listaPlanosId(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield plano_model_1.default.findByPk(id);
+            if (response) {
+                response.preco /= 100;
+                return response;
+            }
+            return null;
+        });
+    }
     addPlano(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(data);
             const { nome, periodo, preco } = data;
             const { id } = yield plano_model_1.default.create({ nome, periodo, preco: preco * 100 });
             return id;
+        });
+    }
+    deletePlano(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield plano_model_1.default.destroy({ where: { id } });
+            if (response) {
+                const message = 'Deletado com sucesso';
+                return message;
+            }
+            return null;
+        });
+    }
+    atualizaPlano(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { nome, periodo, preco } = data;
+            const response = yield plano_model_1.default.update({ nome,
+                periodo,
+                preco: preco * 100 }, { where: { id } });
+            if (response) {
+                const message = 'Atualizado com sucesso';
+                return message;
+            }
+            return null;
         });
     }
 }

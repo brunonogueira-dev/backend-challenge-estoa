@@ -38,4 +38,19 @@ export default class PlanoService {
     }
     return null;
   }
+
+  public async atualizaPlano(id: number, data: IPlanoData): Promise<string | null> {
+    const { nome, periodo, preco } = data;
+    const response = await PlanoModel.update(
+      { nome, 
+        periodo,
+        preco: preco * 100 }, 
+      { where: { id } },
+    );
+    if (response) {      
+      const message = 'Atualizado com sucesso';
+      return message;
+    }
+    return null;
+  }
 }

@@ -16,6 +16,7 @@ const plano_service_1 = __importDefault(require("../service/plano.service"));
 class PlanoController {
     constructor() {
         this.service = new plano_service_1.default();
+        this.noPlan = 'Plano inexistente';
     }
     listarPlanos(_req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -28,6 +29,40 @@ class PlanoController {
             const { nome, periodo, preco } = req.body;
             const id = yield this.service.addPlano({ nome, periodo, preco });
             return res.status(201).json({ id });
+        });
+    }
+    listaPlanosId(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const nId = Number(id);
+            const list = yield this.service.listaPlanosId(nId);
+            if (list) {
+                return res.status(200).json(list);
+            }
+            return res.status(404).json({ message: this.noPlan });
+        });
+    }
+    deletePlano(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const nId = Number(id);
+            const message = yield this.service.deletePlano(nId);
+            if (message) {
+                return res.status(200).json({ message });
+            }
+            return res.status(404).json({ message: this.noPlan });
+        });
+    }
+    atualizaPlano(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const data = req.body;
+            const nId = Number(id);
+            const message = yield this.service.atualizaPlano(nId, data);
+            if (message) {
+                return res.status(200).json({ message });
+            }
+            return res.status(404).json({ message: this.noPlan });
         });
     }
 }
