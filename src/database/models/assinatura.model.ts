@@ -36,7 +36,8 @@ AssinaturaModel.init({
   sequelize: db,
   modelName: 'assinaturas',
   freezeTableName: true,
-  timestamps: true });
+  timestamps: true,
+  updatedAt: false });
 
 AssinaturaModel.belongsTo(PlanoModel, {
   foreignKey: 'idPlano',

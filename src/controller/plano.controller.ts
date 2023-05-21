@@ -35,7 +35,7 @@ export default class PlanoController {
     const nId = Number(id);
     const message = await this.service.deletePlano(nId);
     if (message) {
-      return res.status(200).json({ message });
+      return res.status(204).json({ message });
     }
 
     return res.status(404).json({ message: this.noPlan });

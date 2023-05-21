@@ -28,6 +28,7 @@ UsuarioModel.init({
   sequelize: db,
   modelName: 'usuarios',
   freezeTableName: true,
-  timestamps: true });
+  timestamps: true,
+  updatedAt: false });
 
 export default UsuarioModel;
