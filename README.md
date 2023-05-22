@@ -1,42 +1,51 @@
-# Desafio Backend da Estoa
+<h1>Desafio Backend da Estoa</h1>
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor Backend você é.
+<h2>Instalação</h2>
 
-Provavelmente você já está participando do nosso processo de contratação, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+Para clonar o projeto é necessário inserir o comando:
+<ul>
+    <li>git clone git@github.com:EduardoSimoess/backend-challenge-estoa.git.</li>
+</ul>
 
+Em seguida é necessário instalar as dependências do projeto localmente:
+<ul>
+    <li>npm i.</li>
+</ul>
 
-## Sobre o desafio
+Também optei por utilizar o docker no design do projeto, por isso para subir os containers é necessário usar o comando:
+<ul>
+    <li>docker-compose up -d.</li>
+</ul>
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+Os comando a seguir devem ser inseridos dentro do terminal do container “modelo”, para abri-lo use o comando:
+<ul>
+    <li>docker exec -it modelo bash.</li>
+</ul>
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+Agora, afim de criar o banco de dados, as tabelas e támbem popula-las inserimos:
+<ul>
+    <li>npm run db:reset.</li>
+</ul>
 
-O que nós esperamos aprender de você com o desafio:
+Por fim, parar iniciar a aplicação:
+<ul>
+    <li>npm start.</li>
+</ul>
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+<h2>Desenvolvimento</h2>
 
-O que nós esperamos que você aprenda sobre a Estoa:
+O back-end foi desenvolvido utilizando Node.js e a linguagem escolhida foi o TypeScript, além disso optei por utilizar programação orientada a objetos na construção da API, o armazenamento de dados foi feito com MySQL2, Express e Sequelize.
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
+Para melhor organização do projeto utilizei a arquitetura MSC. De modo que, a camada Model fica responsável pela integração com o banco de dados, a Service contém todas as lógicas de negócio utilizadas na aplicação e, por fim, a Controller fica responsável por passar o resultado das requisições.
 
-## Próximos passos
+<h2>Funcionalidades</h2>
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Preferencialmente utilize uma _branch_ chamada `desafio` ou com o seu nome (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
+<h3>Planos</h3>
+Aqui podemos criar, atualizar, deletar e atualizar os planos. Além disso é possível pesquisar planos individualmente utilizando uma rota específica para o id de cada plano.
 
-## Considerações
+<h3>Usuários</h3>
+As rotas de usuários tem as mesmas funcionalidades que as de planos, além delas também é possível filtrar os planos de acordo com o nome dos usuários e data em que eles foram criados.
 
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas, porém é de suma importância que use React.js, faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
-- Também leve em consideração que estamos availando como será o seu modo de trabalho no nosso dia a dia. Então, use as melhores práticas de semântica, estruturação, legibilidade e componentização.
+Vale dizer que asim que um novo usuário é inserido no banco, também é criada uma assinatura relacionada a ele e o tipo do plano escolhido é "Gratuíto" como defalt.
 
-## Dúvidas?
-
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
-
-**Boa sorte!**
+Ao atualizar as informações do usuário é possível mudar o tipo do seu plano, uma vez que isso aconteça a tabela de assinaturas também tem seus respectivos campos atualizados.
