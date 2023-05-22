@@ -19,6 +19,26 @@ export default class UsuarioController {
     return res.status(200).json({ lista });
   }
 
+  public async listaUsuarioNome(req: Request, res: Response) {
+    const { nome } = req.body;
+    const lista = await this.service.listaUsuarioNome(nome);
+    if (lista.length >= 1) {
+      return res.status(200).json({ usuarios: lista });
+    }
+
+    return res.status(404).json({ message: this.noUser});
+  }
+
+  public async listaUsuariosData(req: Request, res: Response) {
+    const { data } = req.body;
+    const lista = await this.service.listaUsuarioData(data);
+    if (lista.length >= 1) {
+      return res.status(200).json({ usuarios: lista });
+    }
+
+    return res.status(404).json({ message: this.noUser}); 
+  }
+
   public async listaUsuarioId(req: Request, res: Response) {
     const { id } = req.params;
     const nId = Number(id);

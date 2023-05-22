@@ -7,6 +7,8 @@ import { IAssinatura } from '../interfaces/IAssinatura';
 import { IPlano } from '../interfaces/IPlano';
 import { IUsuario } from '../interfaces/IUsuario';
 import { IUsuarioData } from '../interfaces/IUsuarioData';
+import fixData from '../utils/fix.data';
+import getTimes from '../utils/get.times';
 
 /* eslint-disable class-methods-use-this */
 export default class UsuarioService {
@@ -25,12 +27,28 @@ export default class UsuarioService {
     return null;
   }
 
+  public async listaUsuarioNome(nome: string): Promise<IUsuario[]> {
+    const lista: IUsuario[] = await this.listaUsuarios();
+    const response = lista.filter((item) => item.nome === nome);
+
+    return response;
+  }
+
+  public async listaUsuarioData(date: string): Promise<IUsuario[]> {
+    const lista: IUsuario[] = await this.listaUsuarios();
+    const fixed = fixData(date);
+    const fixedDate = JSON.stringify(getTimes(new Date(fixed)));
+
+    const response: IUsuario[] = lista.filter((item) => {
+      if (JSON.stringify(getTimes(item.createdAt)) == fixedDate) {
+        return item;
+      }
+    });
+
+    return response;
+  }
+
   public async addUsuario(data: IUsuarioData): Promise<number> {
-    // const { id } = await UsuarioModel.create({ ...data, tipo: 'Grátis' });
-    // const date = new Date();
-    // const dataDeExpiracao = new Date(date.setMonth(date.getMonth() + 1));
-    // await AssinaturaModel.create({ idPlano: 1, idUsuario: id, dataDeExpiracao });
-    // return id;
     const { id } = await UsuarioModel.create({ ...data, tipo: 'Grátis' });
     const response: IPlano | null = await PlanoModel.findOne({ where: { nome: 'Grátis' } });
     if (response) {
