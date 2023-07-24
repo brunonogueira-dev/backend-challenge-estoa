@@ -1,0 +1,25 @@
+{
+  "name": "backend-challenge-estoa",
+  "version": "1.0.0",
+  "description": "Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor Backend você é.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F-Jackson/backend-challenge-estoa.git"
+  },
+  "author": "Jackson Fernandes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/F-Jackson/backend-challenge-estoa/issues"
+  },
+  "homepage": "https://github.com/F-Jackson/backend-challenge-estoa#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jest": "^29.6.1",
+    "sequelize": "^6.32.1",
+    "swagger-ui-express": "^5.0.0"
+  }
+}
