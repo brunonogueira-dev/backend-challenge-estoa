@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model, BuildOptions } from "sequelize";
+import { DataTypes, Model, BuildOptions } from "sequelize";
 import db from "../configs/db";
 import bcrypt from "bcryptjs";
 
@@ -29,7 +29,7 @@ const User = <UserStatic>db.define("user", {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
     type: {
         type: DataTypes.STRING,
@@ -41,6 +41,12 @@ const User = <UserStatic>db.define("user", {
         beforeCreate: async (user) => {
             const hashedPassword = await bcrypt.hash(user.password, 10);
             user.password = hashedPassword;
+        },
+        beforeUpdate: async (user) => {
+            if (user.changed('password')) {
+                const hashedPassword = await bcrypt.hash(user.password, 10);
+                user.password = hashedPassword;
+            }
         }
     }
 });
