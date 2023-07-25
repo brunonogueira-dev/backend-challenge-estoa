@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 
 import { Router, Request, Response } from 'express';
 import db from './configs/db';
+import User from './models/user';
 
 const app = express();
 
@@ -20,13 +21,18 @@ route.get('/', (req: Request, res: Response) => {
 
 app.use(route)
 
-db
-  .sync()
-  .then(() => {
+async function startServer() {
+  try {
+    await db.sync({ alter: true });
+    await User.sync({ alter: true });
     console.log("Database successfully connected");
-  })
-  .catch((err) => {
+  } catch (err) {
     console.log("Error", err);
-  });
+  }
 
-app.listen(3333, () => {console.log('server running on port 3333')});
+  app.listen(3333, () => {
+    console.log('Server running on port 3333');
+  });
+}
+
+startServer();
