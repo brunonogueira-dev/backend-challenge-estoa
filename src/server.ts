@@ -20,6 +20,14 @@ route.get('/', (req: Request, res: Response) => {
 
 app.use(route)
 
+db
+  .sync()
+  .then(() => {
+    console.log("Database successfully connected");
+  })
+  .catch((err) => {
+    console.log("Error", err);
+  });
 
 app.listen(3333, () => 'server running on port 3333');
 console.log("server runing on port 3333");
