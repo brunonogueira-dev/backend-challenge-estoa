@@ -1,12 +1,18 @@
 import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
 
 import { Router, Request, Response } from 'express';
+import db from './configs/db';
 
 const app = express();
 
-const route = Router();
-
 app.use(express.json())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
+
+const route = Router();
 
 route.get('/', (req: Request, res: Response) => {
   res.json({ message: 'hello world with Typescript' })
