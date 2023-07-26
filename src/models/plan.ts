@@ -1,5 +1,6 @@
 import { DataTypes, Model, BuildOptions } from "sequelize";
 import db from "../configs/db";
+import { UserModel } from "./user";
 
 
 interface PlanAttributes {
@@ -8,8 +9,11 @@ interface PlanAttributes {
     expiration: number;
 }
 
-interface PlanModel extends Model<PlanAttributes>, PlanAttributes {};
-type PlanStatic = typeof Model & {
+export interface PlanModel extends Model<PlanAttributes>, PlanAttributes {
+    id: number;
+    getUsers(): UserModel[];
+};
+export type PlanStatic = typeof Model & {
     new (values?: object, options?: BuildOptions): PlanModel;
 };
 

@@ -1,7 +1,12 @@
+import Plan from "../../src/models/plan";
+import Signature from "../../src/models/signature";
 import User from "../../src/models/user";
 
 describe("User Model", () => {
   beforeEach(async () => {
+    await Plan.sync({alter: true});
+    await User.sync({alter: true});
+    await Signature.sync({alter: true});
     await User.destroy({ where: {} });
   });
 

@@ -6,6 +6,7 @@ import { Router, Request, Response } from 'express';
 import db from './configs/db';
 import User from './models/user';
 import Plan from './models/plan';
+import Signature from './models/signature';
 
 const app = express();
 
@@ -27,6 +28,7 @@ async function startServer() {
     await db.sync({ alter: true });
     await User.sync({ alter: true });
     await Plan.sync({ alter: true });
+    await Signature.sync({ alter: true });
     console.log("Database successfully connected");
   } catch (err) {
     console.log("Error", err);

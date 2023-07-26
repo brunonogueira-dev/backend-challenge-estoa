@@ -1,6 +1,7 @@
 import { DataTypes, Model, BuildOptions } from "sequelize";
 import db from "../configs/db";
 import bcrypt from "bcryptjs";
+import { PlanModel } from "./plan";
 
 type TAuthentication = Promise<UserModel | null>;
 
@@ -11,7 +12,11 @@ interface UserAttributes {
     type: string;
 }
 
-interface UserModel extends Model<UserAttributes>, UserAttributes {};
+export interface UserModel extends Model<UserAttributes>, UserAttributes {
+    id: number;
+    getPlans(): PlanModel[];
+    addPlan(plan: PlanModel): null;
+};
 type UserStatic = typeof Model & {
     new (values?: object, options?: BuildOptions): UserModel;
     authenticate(email: string, password: string): TAuthentication;
