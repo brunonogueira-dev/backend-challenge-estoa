@@ -1,4 +1,3 @@
-const md5 = require('md5');
 const UserService = require('../service/userService');
 
 async function findAll(_, response) {

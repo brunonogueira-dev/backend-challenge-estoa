@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING(255),
     price: DataTypes.INTEGER,
-    expiry_period: DataTypes.STRING(255),
+    expiry_period: DataTypes.INTEGER,
   },
     {
       tableName: 'plans',

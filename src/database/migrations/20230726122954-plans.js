@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      expiry_period: {
+      expiryPeriod: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
