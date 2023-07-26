@@ -9,19 +9,32 @@ const User = <UserStatic>db.define("user", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            len: [4, 255]
+        }
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+            isEmail: true,
+            len: [4, 255]
+        }
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            len: [4, 255]
+        }
     },
     type: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+            len: [4, 255]
+        }
     }
 }, {
     tableName: "user",
