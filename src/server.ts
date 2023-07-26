@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import { Router, Request, Response } from 'express';
 import db from './configs/db';
 import User from './models/user';
+import Plan from './models/plan';
 
 const app = express();
 
@@ -25,6 +26,7 @@ async function startServer() {
   try {
     await db.sync({ alter: true });
     await User.sync({ alter: true });
+    await Plan.sync({ alter: true });
     console.log("Database successfully connected");
   } catch (err) {
     console.log("Error", err);
