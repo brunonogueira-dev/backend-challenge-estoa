@@ -14,10 +14,7 @@ const Plan = <PlanStatic>db.define("plan",
         },
         price: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                min: 1
-            }
+            allowNull: false
         },
         expiration: {
             type: DataTypes.INTEGER,

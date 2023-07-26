@@ -21,7 +21,7 @@ route.get('/', (req: Request, res: Response) => {
   res.json({ message: 'hello world with Typescript' })
 })
 
-app.use(route)
+app.use(route);
 
 async function startServer() {
   try {
@@ -29,6 +29,16 @@ async function startServer() {
     await User.sync({ alter: true });
     await Plan.sync({ alter: true });
     await Signature.sync({ alter: true });
+
+    const planExists = await Plan.findOne({where: {name: 'free'}});
+    if (!planExists) {
+      await Plan.create({
+        name: 'free',
+        price: 0,
+        expiration: 1
+      })
+    }
+
     console.log("Database successfully connected");
   } catch (err) {
     console.log("Error", err);
