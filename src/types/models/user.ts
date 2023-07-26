@@ -1,5 +1,4 @@
 import { Model, BuildOptions } from "sequelize";
-import { PlanModel } from "./plan";
 
 export type TAuthentication = Promise<UserModel | null>;
 
@@ -14,8 +13,6 @@ export interface UserAttributes {
 
 export interface UserModel extends Model<UserAttributes>, UserAttributes {
     id: number;
-    getPlans(): PlanModel[];
-    addPlan(plan: PlanModel): null;
 };
 
 export type UserStatic = typeof Model & {

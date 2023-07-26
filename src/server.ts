@@ -25,10 +25,10 @@ app.use(route);
 
 async function startServer() {
   try {
-    await db.sync({ alter: true });
-    await User.sync({ alter: true });
-    await Plan.sync({ alter: true });
-    await Signature.sync({ alter: true });
+    await db.sync();
+    await User.sync();
+    await Plan.sync();
+    await Signature.sync();
 
     const planExists = await Plan.findOne({where: {name: 'free'}});
     if (!planExists) {

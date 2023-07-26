@@ -1,5 +1,4 @@
 import { Model, BuildOptions } from "sequelize";
-import { UserModel } from "./user";
 
 export interface PlanAttributes {
     name: string;
@@ -11,7 +10,6 @@ export interface PlanAttributes {
 
 export interface PlanModel extends Model<PlanAttributes>, PlanAttributes {
     id: number;
-    getUsers(): UserModel[];
 };
 
 export type PlanStatic = typeof Model & {

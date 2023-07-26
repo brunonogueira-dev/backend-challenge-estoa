@@ -1,7 +1,7 @@
 1 - Montar database - conectar e fazer os modelos ✅
-2 - Arquiteturar API - desenhar por texto
+2 - Arquiteturar API - desenhar por texto ✅
 3 - Montar testes - usar jest para TDD
-4 - Montar express js e conectar ao db
+4 - Montar express js e conectar ao db ✅
 5 - Montar rotas
 6 - Montar middlewares de autenticação - jwt
 7 - Fazer Logica de negocio

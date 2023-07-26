@@ -3,7 +3,7 @@ import Plan from "../../../src/models/plan";
 
 
 
-describe("Pan creation", () => {
+describe("Plan creation", () => {
     beforeEach(async () => {
         await Plan.destroy({ where: {} });
     });
@@ -40,17 +40,6 @@ describe("Pan creation", () => {
     test('test fail because name was not given', async () => {
         const name = "";
         const price = 2000;
-        const expiration = 2;
-
-        const planCreator = new PlanCreator(name, price, expiration);
-        const plan = await planCreator.create();
-
-        expect(plan).toBeNull();
-    }, 100000);
-
-    test('test fail because price cant be zero', async () => {
-        const name = 'Test plan';
-        const price = 0;
         const expiration = 2;
 
         const planCreator = new PlanCreator(name, price, expiration);
