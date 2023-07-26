@@ -8,6 +8,8 @@ export interface UserAttributes {
     email: string;
     password: string;
     type: string;
+    readonly createdAt?: Date;
+    readonly updatedAt?: Date;
 }
 
 export interface UserModel extends Model<UserAttributes>, UserAttributes {

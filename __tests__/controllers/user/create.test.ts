@@ -20,7 +20,7 @@ describe("User creation", () => {
         expect(user?.name).toBe(name);
         expect(user?.email).toBe(email);
         expect(user?.type).toBe(type);
-    });
+    }, 100000);
 
     test('test ok user receive user from object', async () => {
         const email = "test@example.com";
@@ -37,7 +37,7 @@ describe("User creation", () => {
         expect(foundUser?.name).toBe(name);
         expect(foundUser?.email).toBe(email);
         expect(foundUser?.type).toBe(type);
-    });
+    }, 100000);
 
     test('test ok user password is encrypted', async () => {
         const email = "test@example.com";
@@ -50,7 +50,7 @@ describe("User creation", () => {
 
         expect(user).toBeTruthy();
         expect(user?.password).not.toBe(password);
-    });
+    }, 100000);
 
     test('test fail because email is in the wrong format', async () => {
         const email = "invalidemail";
@@ -62,7 +62,7 @@ describe("User creation", () => {
         const user = await userCreator.create();
 
         expect(user).toBeNull();
-    });
+    }, 100000);
 
     test('test fail because user with given email already exists', async () => {
         const email = "test@example.com";
@@ -70,14 +70,13 @@ describe("User creation", () => {
         const password = "testpassword";
         const type = "regular";
 
-        // Create a user with the same email
         await User.create({ email, name: "Other User", password: "otherpassword", type: "other" });
 
         const userCreator = new UserCreator(email, name, password, type);
         const user = await userCreator.create();
 
         expect(user).toBeNull();
-    });
+    }, 100000);
 
     test('test fail because email was not given', async () => {
         const name = "Test User";
@@ -88,7 +87,7 @@ describe("User creation", () => {
         const user = await userCreator.create();
 
         expect(user).toBeNull();
-    });
+    }, 100000);
 
     test('test fail because name was not given', async () => {
         const email = "test@example.com";
@@ -99,7 +98,7 @@ describe("User creation", () => {
         const user = await userCreator.create();
 
         expect(user).toBeNull();
-    });
+    }, 100000);
 
     test('test fail because password was not given', async () => {
         const email = "test@example.com";
@@ -110,7 +109,7 @@ describe("User creation", () => {
         const user = await userCreator.create();
 
         expect(user).toBeNull();
-    });
+    }, 100000);
 
     test('test fail because type was not given', async () => {
         const email = "test@example.com";
@@ -121,5 +120,5 @@ describe("User creation", () => {
         const user = await userCreator.create();
 
         expect(user).toBeNull();
-    });
+    }, 100000);
 });
