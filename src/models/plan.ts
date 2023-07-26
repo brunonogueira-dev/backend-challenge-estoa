@@ -1,21 +1,7 @@
-import { DataTypes, Model, BuildOptions } from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../configs/db";
-import { UserModel } from "./user";
+import { PlanStatic } from "../types/models/plan";
 
-
-interface PlanAttributes {
-    name: string;
-    price: number;
-    expiration: number;
-}
-
-export interface PlanModel extends Model<PlanAttributes>, PlanAttributes {
-    id: number;
-    getUsers(): UserModel[];
-};
-export type PlanStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): PlanModel;
-};
 
 const Plan = <PlanStatic>db.define("plan",
     {

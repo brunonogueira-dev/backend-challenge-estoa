@@ -1,15 +1,7 @@
-import { Model, BuildOptions } from "sequelize";
 import db from "../configs/db";
 import Plan from "./plan";
 import User from "./user";
-
-
-interface SignatureAttributes {}
-
-interface SignatureModel extends Model<SignatureAttributes>, SignatureAttributes {};
-type SignatureStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): SignatureModel;
-};
+import { SignatureStatic } from "../types/models/signature";
 
 const Signature = <SignatureStatic>db.define("signature", {}, {});
 
