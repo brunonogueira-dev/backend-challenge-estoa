@@ -20,6 +20,7 @@ export default class PlanCreator {
                 price: this.price,
             };
             const plan = await Plan.create(IPlanAttributes);
+            await plan.reload();
             return plan;
         } catch (e) {
           console.log("Failed while trying to create the plan");

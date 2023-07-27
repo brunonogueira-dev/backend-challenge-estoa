@@ -13,7 +13,9 @@ export class DeleteByPk {
         if(plan && plan.name !== 'free') {
             await plan.destroy();
         } else {
-            throw new Error("Plan not found");
+            const error: any = new Error('Plan not found');
+            error.status = 404;
+            throw error;
         }
     }
 }

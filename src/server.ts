@@ -7,10 +7,10 @@ import Plan from './models/plan';
 import Signature from './models/signature';
 import User from './models/user';
 import userRouter from './routes/userRoutes';
-import planRouter from './routes/PlanRoutes';
+import planRouter from './routes/planRoutes';
 import signatureRouter from './routes/signatureRoutes';
 
-const app = express();
+export const app = express();
 
 app.use(express.json())
 app.use(bodyParser.json())

@@ -21,12 +21,14 @@ planRouter.get('/:id', async (req: Request, res: Response) => {
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
         const planGetter = new GetterByPk(intId);
         const plan = await planGetter.get();
-    
+
         if (plan) {
-            const data = { plan: plan }
+            const planJson = await plan.toJSON();
+
+            const data = { plan: planJson }
             return res.send(data);
         } else {
-            return res.status(404).send({ message: 'plan not found'});
+            return res.status(404).send({ message: 'Plan not found'});
         }
     });
 });
@@ -40,7 +42,9 @@ planRouter.post('/', async (req: Request, res: Response) => {
     const plan = await creator.create();
 
     if (plan) {
-        const data = { plan: plan }
+        const planJson = await plan.toJSON();
+
+        const data = { plan: planJson }
         return res.status(202).send(data);
     } else {
         return res.status(400).send({ message: 'cant create plan' });
@@ -58,7 +62,7 @@ planRouter.delete('/:id', async (req: Request, res: Response) => {
             const data = { message: 'plan deleted' }
             return res.status(201).send(data);
         } catch(e: any) {
-            return res.status(400).send({ message: e.message });
+            return res.status(e.status || 400).send({ message: e.message });
         }
     });
 });
@@ -82,8 +86,9 @@ planRouter.put('/:id', async (req: Request, res: Response) => {
         
         try {
             const plan = await planUpdatter.update(options);
-            const data = { plan: plan };
-            return res.status(204).send(data);
+            const planJson = await plan.toJSON();
+            const data = { plan: planJson };
+            return res.status(200).send(data);
         } catch(e: any) {
             return res.status(400).send({ message: 'plan cant be updated' });
         }

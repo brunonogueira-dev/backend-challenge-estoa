@@ -1,5 +1,6 @@
 import Plan from "../../models/plan";
 import { IUpdateOptions } from "../../types/controllers/plan";
+import { IPlanModel } from "../../types/models/plan";
 
 
 
@@ -20,6 +21,7 @@ export class UpdateByPk {
                 price: options.price || plan.price,
                 expiration: options.expiration|| plan.expiration
             });
+            return plan;
         } else {
             throw new Error("Plan not found");
         }
