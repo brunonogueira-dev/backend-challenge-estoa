@@ -14,14 +14,17 @@ export class UpdateByPk {
         const user = await User.findByPk(this.pk);
 
         if(user) {
-            return await user.update({
+            await user.update({
                 email: options.email || user.email,
                 name: options.name || user.name,
                 type: options.type || user.type,
                 password: options.password || user.password
             });
+            return user;
         } else {
-            throw new Error("User not found");
+            const error: any = new Error('User not found');
+            error.status = 404;
+            throw error;
         }
     }
 }

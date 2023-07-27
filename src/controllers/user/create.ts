@@ -42,7 +42,8 @@ export default class UserCreator {
             const sig = await sigCreator.create();
 
             if (!sig) return await this.reverseCreation(user);
-
+            
+            await user.reload();
             return user;
         } catch (e) {
           console.log("Failed while trying to create the user");

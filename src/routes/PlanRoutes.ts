@@ -90,7 +90,7 @@ planRouter.put('/:id', async (req: Request, res: Response) => {
             const data = { plan: planJson };
             return res.status(200).send(data);
         } catch(e: any) {
-            return res.status(400).send({ message: 'plan cant be updated' });
+            return res.status(e.status || 400).send({ message: e.message });
         }
     });
 });

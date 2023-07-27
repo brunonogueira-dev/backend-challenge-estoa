@@ -23,7 +23,9 @@ export class UpdateByPk {
             });
             return plan;
         } else {
-            throw new Error("Plan not found");
+            const error: any = new Error('Plan not found');
+            error.status = 404;
+            throw error;
         }
     }
 }

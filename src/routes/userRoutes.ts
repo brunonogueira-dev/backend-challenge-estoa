@@ -24,15 +24,17 @@ userRouter.get('/:id', async (req: Request, res: Response) => {
         const user = await userGetter.get();
     
         if (user) {
-            const data = { user: user }
+            const userJson = await user.toJSON();
+
+            const data = { user: userJson }
             return res.send(data);
         } else {
-            return res.status(404).send({ message: 'user not found'});
+            return res.status(404).send({ message: 'User not found'});
         }
     });
 });
 
-userRouter.get('/search', (req: Request, res: Response) => {
+userRouter.get('/search/q', async (req: Request, res: Response) => {
     let options: any = {};
 
     const name = req.query.name;
@@ -44,7 +46,7 @@ userRouter.get('/search', (req: Request, res: Response) => {
     const userFilter = new Filter();
 
     try {
-        const users = userFilter.filter(options);
+        const users = await userFilter.filter(options);
 
         const data = { users: users }
         return res.send(data);
@@ -63,7 +65,9 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const user = await creator.create();
 
     if (user) {
-        const data = { user: user }
+        const userJson = await user.toJSON();
+
+        const data = { user: userJson }
         return res.status(202).send(data);
     } else {
         return res.status(400).send({ message: 'cant create user' });
@@ -80,7 +84,7 @@ userRouter.delete('/:id', async (req: Request, res: Response) => {
             const data = { message: 'user deleted' }
             return res.status(201).send(data);
         } catch(e: any) {
-            return res.status(400).send({ message: e.message });
+            return res.status(e.status || 400).send({ message: e.message });
         }
     });
 });
@@ -107,10 +111,11 @@ userRouter.put('/:id', async (req: Request, res: Response) => {
         
         try {
             const user = await userUpdatter.update(options);
-            const data = { user: user };
-            return res.status(204).send(data);
+            const userJson = await user.toJSON();
+            const data = { user: userJson };
+            return res.status(200).send(data);
         } catch(e: any) {
-            return res.status(400).send({ message: 'user cant be updated' });
+            return res.status(e.status || 400).send({ message: e.message });
         }
     });
 });

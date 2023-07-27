@@ -21,16 +21,14 @@ export class Filter {
               const operator: TValidOperators = createdSplited[0] as TValidOperators;
               const dateValue = createdSplited[1];
               
-              whereQuery.createdAt = { [Op[operator]]: dateValue, };
+              whereQuery.createdAt = { [Op[operator]]: new Date(dateValue).toISOString(), };
             } else {
-              whereQuery.createdAt = options.createdAt;
+              whereQuery.createdAt = new Date(options.createdAt).toISOString();
             }
         }
 
-        const users = await User.findAll({
+        return await User.findAll({
             where: whereQuery
         });
-
-        return users;
     }
 }

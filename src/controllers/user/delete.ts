@@ -13,7 +13,9 @@ export class DeleteByPk {
         if(user) {
             await user.destroy();
         } else {
-            throw new Error("User not found");
+            const error: any = new Error('User not found');
+            error.status = 404;
+            throw error;
         }
     }
 }
