@@ -1,5 +1,4 @@
-import { route } from "../server";
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { adaptIdFromStringToInteger } from "./adapters/id";
 import { GetSignatureByUserPk, GetUserSignaturePk } from "../controllers/signatures/get";
 import SignatureCreator from "../controllers/signatures/create";
@@ -7,7 +6,10 @@ import User from "../models/user";
 import Plan from "../models/plan";
 import ChangeSignature from "../controllers/signatures/update";
 
-route.get('/signature-user/:id', async (req: Request, res: Response) => {
+
+const signatureRouter = Router();
+
+signatureRouter.get('/get-user/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
@@ -26,7 +28,7 @@ route.get('/signature-user/:id', async (req: Request, res: Response) => {
         }
     });
 });
-route.get('/user-signatures/:id', async (req: Request, res: Response) => {
+signatureRouter.get('/get-by-user/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
@@ -37,7 +39,7 @@ route.get('/user-signatures/:id', async (req: Request, res: Response) => {
     });
 });
 
-route.post('/signatures', async (req: Request, res: Response) => {
+signatureRouter.post('/', async (req: Request, res: Response) => {
     const userId = req.body.userId;
     if (!userId) return res.status(400).send({ message: 'need to provide an user id' });
 
@@ -61,7 +63,7 @@ route.post('/signatures', async (req: Request, res: Response) => {
     }
 });
 
-route.put('/signatures/:id', async (req: Request, res: Response) => {
+signatureRouter.put('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
 
     const planId = req.body.planId;
@@ -82,3 +84,5 @@ route.put('/signatures/:id', async (req: Request, res: Response) => {
         }
     });
 });
+
+export default signatureRouter;

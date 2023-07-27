@@ -2,20 +2,21 @@ import UserCreator from "../controllers/user/create";
 import { DeleteByPk } from "../controllers/user/delete";
 import { Filter } from "../controllers/user/filter";
 import { GetterAll, GetterByPk } from "../controllers/user/get";
-import { route } from "../server";
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { adaptIdFromStringToInteger } from "./adapters/id";
 import { UpdateByPk } from "../controllers/user/update";
 
 
-route.get('/users', async (req: Request, res: Response) => {
+const userRouter = Router();
+
+userRouter.get('/', async (req: Request, res: Response) => {
     const userGetter = new GetterAll();
     const users = await userGetter.get();
     const data = { users: users };
     return res.send(data);
 });
 
-route.get('/users/:id', async (req: Request, res: Response) => {
+userRouter.get('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
@@ -31,7 +32,7 @@ route.get('/users/:id', async (req: Request, res: Response) => {
     });
 });
 
-route.get('/users/search', (req: Request, res: Response) => {
+userRouter.get('/search', (req: Request, res: Response) => {
     let options: any = {};
 
     const name = req.query.name;
@@ -52,7 +53,7 @@ route.get('/users/search', (req: Request, res: Response) => {
     }
 });
 
-route.post('/users', async (req: Request, res: Response) => {
+userRouter.post('/', async (req: Request, res: Response) => {
     const email = req.body.email || "";
     const name = req.body.name || "";
     const password = req.body.password || "";
@@ -69,7 +70,7 @@ route.post('/users', async (req: Request, res: Response) => {
     }
 });
 
-route.delete('/users/:id', async (req: Request, res: Response) => {
+userRouter.delete('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
 
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
@@ -84,7 +85,7 @@ route.delete('/users/:id', async (req: Request, res: Response) => {
     });
 });
 
-route.put('/users/:id', async (req: Request, res: Response) => {
+userRouter.put('/:id', async (req: Request, res: Response) => {
     let options: any = {};
 
     const id = req.params.id;
@@ -113,3 +114,5 @@ route.put('/users/:id', async (req: Request, res: Response) => {
         }
     });
 });
+
+export default userRouter;

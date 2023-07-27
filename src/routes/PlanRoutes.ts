@@ -1,19 +1,21 @@
 import { GetterAll, GetterByPk } from "../controllers/plan/get";
-import { route } from "../server";
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { adaptIdFromStringToInteger } from "./adapters/id";
 import { DeleteByPk } from "../controllers/plan/delete";
 import PlanCreator from "../controllers/plan/create";
 import { UpdateByPk } from "../controllers/plan/update";
 
-route.get('/plans', async (req: Request, res: Response) => {
+
+const planRouter = Router();
+
+planRouter.get('/', async (req: Request, res: Response) => {
     const planGetter = new GetterAll();
     const plans = await planGetter.get();
     const data = { plans: plans };
     return res.send(data);
 });
 
-route.get('/plans/:id', async (req: Request, res: Response) => {
+planRouter.get('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
@@ -29,7 +31,7 @@ route.get('/plans/:id', async (req: Request, res: Response) => {
     });
 });
 
-route.post('/plans', async (req: Request, res: Response) => {
+planRouter.post('/', async (req: Request, res: Response) => {
     const name = req.body.name || "";
     const expiration = req.body.expiration || "";
     const price = req.body.price || "";
@@ -45,7 +47,7 @@ route.post('/plans', async (req: Request, res: Response) => {
     }
 });
 
-route.delete('/plans/:id', async (req: Request, res: Response) => {
+planRouter.delete('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
 
     return await adaptIdFromStringToInteger(id, res, async (intId: number) => {
@@ -61,7 +63,7 @@ route.delete('/plans/:id', async (req: Request, res: Response) => {
     });
 });
 
-route.put('/plans/:id', async (req: Request, res: Response) => {
+planRouter.put('/:id', async (req: Request, res: Response) => {
     let options: any = {};
 
     const id = req.params.id;
@@ -87,3 +89,5 @@ route.put('/plans/:id', async (req: Request, res: Response) => {
         }
     });
 });
+
+export default planRouter;

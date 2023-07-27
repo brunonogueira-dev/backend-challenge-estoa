@@ -2,11 +2,13 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 
-import { Router } from 'express';
 import db from './configs/db';
 import Plan from './models/plan';
 import Signature from './models/signature';
 import User from './models/user';
+import userRouter from './routes/userRoutes';
+import planRouter from './routes/PlanRoutes';
+import signatureRouter from './routes/signatureRoutes';
 
 const app = express();
 
@@ -15,9 +17,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
-export const route = Router();
-
-app.use(route);
+app.use('/users', userRouter);
+app.use('/plans', planRouter);
+app.use('/signatures', signatureRouter);
 
 const createFreePlan = async () => {
   const planExists = await Plan.findOne({where: {name: 'free'}});

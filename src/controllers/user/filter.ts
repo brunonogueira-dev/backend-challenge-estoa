@@ -21,9 +21,7 @@ export class Filter {
               const operator: TValidOperators = createdSplited[0] as TValidOperators;
               const dateValue = createdSplited[1];
               
-              whereQuery.createdAt = {
-                [Op[operator]]: dateValue,
-              };
+              whereQuery.createdAt = { [Op[operator]]: dateValue, };
             } else {
               whereQuery.createdAt = options.createdAt;
             }
