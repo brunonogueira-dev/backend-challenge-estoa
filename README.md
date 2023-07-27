@@ -45,7 +45,7 @@ GET (`/signature/:id`) Para verificar determinada Assinatura pelo seu ID.
 
 POST (`/sing`) Para registrar uma nova Assinatura.
 
-DELETE (`/delUser/:id`) Para deletar determinada Assinatura.
+DELETE (`/delSig/:id`) Para deletar determinada Assinatura.
 
 
 ## Alguns JSON para utilizar
