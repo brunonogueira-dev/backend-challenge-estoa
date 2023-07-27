@@ -52,8 +52,6 @@ DELETE (`/delUser/:id`) Para deletar determinada Assinatura.
 
 **Cadatrar Usuario**
 
-{
-
 	"name": "Joaozinho",
 
 	"email": "joaozinho@gmail.com",
@@ -61,12 +59,10 @@ DELETE (`/delUser/:id`) Para deletar determinada Assinatura.
 	"password": "123456789",
 
 	"typeUser": "Gratis"
-  
-}
+
 
 **Cadatrar Plano**
 
-{
 
 	"name": "vip",
 
@@ -74,17 +70,14 @@ DELETE (`/delUser/:id`) Para deletar determinada Assinatura.
 
 	"expiryPeriod": 20
 
-}
 
 **Cadatrar Plano**
 
-{
 
 	"userId": 1,
 
 	"planId":1
 
-}
 
 ## Finalizando
 
