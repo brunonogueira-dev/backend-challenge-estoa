@@ -1,4 +1,3 @@
-import { where } from "sequelize";
 import { Plan, User, Subscription } from "../../db/models";
 import {
     IUser,
