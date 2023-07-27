@@ -225,7 +225,7 @@
             {
               "name": "created_at",
               "in": "query",
-              "description": "Filtro pela data de criação do usuário.",
+              "description": "Filtro pela data de criação do usuário. (pode ser passado um parametro de tempo para a pesquisa: [eq, gt, gte, lt, lte])",
               "required": false,
               "type": "string",
               "format": "date"
@@ -252,6 +252,171 @@
                 "$ref": "#/definitions/Error"
               }
             }
+          }
+        }
+      },
+      "/plans/": {
+        "get": {
+          "description": "Retorna todos os planos",
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plans": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Plan"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "description": "Cria um plano",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Objeto do corpo da requisição",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/PlanPost"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plan": {
+                    "$ref": "#/definitions/Plan"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/plans/{id}": {
+        "get": {
+          "description": "Retorna o plano correspondente ao id dado caso encontrado",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do plano.",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+              "200": {
+                "description": "Sucesso",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "plan": {
+                      "$ref": "#/definitions/Plan"
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Erro de requisição",
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+            }
+          }
+        },
+        "delete": {
+          "description": "Deleta o plano correspondente ao id dado caso encontrado",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do plano.",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+              "201": {
+                "description": "Sucesso"
+              },
+              "404": {
+                "description": "Erro de requisição",
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              },
+              "400": {
+                "description": "Erro de requisição",
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
+          }
+        },
+        "put": {
+          "description": "Edita informaçoes do plano",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do plano.",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Objeto do corpo da requisição",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/PlanPost"
+              }
+            }
+          ],
+          "responses": {
+              "200": {
+                "description": "Sucesso",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "$ref": "#/definitions/Plan"
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Erro de requisição",
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              },
+              "400": {
+                "description": "Erro de requisição",
+                "schema": {
+                  "$ref": "#/definitions/Error"
+                }
+              }
           }
         }
       }
@@ -282,6 +447,64 @@
             "description": "tipo do usuário."
           }
         }
+      },
+      "Plan": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Id do plano."
+          },
+          "name": {
+            "type": "string",
+            "description": "nome do plano."
+          },
+          "price": {
+            "type": "integer",
+            "description": "preço do plano",
+            "format": "int64"
+          },
+          "expiration": {
+            "type": "integer",
+            "description": "data de expiração do plano",
+            "format": "int64"
+          }
+        }
+      },
+      "PlanPost": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiration": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": ["name", "price", "expiration"]
+      },
+      "PlanUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiration": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": ["name", "price", "expiration"]
       },
       "Error": {
         "type": "object",
