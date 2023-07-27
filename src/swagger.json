@@ -419,6 +419,173 @@
               }
           }
         }
+      },
+      "/signatures/": {
+        "post": {
+          "description": "Cria uma assinatura",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Objeto do corpo da requisição",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SignaturePost"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "signature": {
+                    "$ref": "#/definitions/Signature"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/signatures/{id}": {
+        "put": {
+          "description": "Muda o plano de uma assinatura",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID da assinatura.",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Objeto do corpo da requisição",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SignatureUpdate"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "signature": {
+                    "$ref": "#/definitions/Signature"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "404": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/signatures/get-user/{id}": {
+        "put": {
+          "description": "Pega o user de uma assinatura",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID da user.",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "$ref": "#/definitions/User"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "404": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/signatures/get-by-user/{id}": {
+        "put": {
+          "description": "Pega as assinaturas de um usuario",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID da assinatura.",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "signatures": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Signature"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "404": {
+              "description": "Erro de requisição",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
       }
     },
     "definitions": {
@@ -505,6 +672,46 @@
           }
         },
         "required": ["name", "price", "expiration"]
+      },
+      "Signature": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "planId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "SignaturePost": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "planId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": ["userId", "planId"]
+      },
+      "SignatureUpdate": {
+        "type": "object",
+        "properties": {
+          "planId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": ["userId", "planId"]
       },
       "Error": {
         "type": "object",
