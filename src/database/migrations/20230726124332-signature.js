@@ -23,13 +23,13 @@ module.exports = {
         },
         type: Sequelize.DataTypes.INTEGER,
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      expiry_date: {
+      expiryDate: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.STRING(10),
       }
     });
   },

@@ -21,8 +21,12 @@ async function create(object) {
   return newUser;
 }
 
-async function update(id, name, email, password, typeUser) {
-  await User.update({ name: name, email: email, password: md5(password), typeUser: typeUser }, { where: { id } });
+async function update(id, name, email, password) {
+  await User.update({ name: name, email: email, password: md5(password) }, { where: { id } });
+}
+
+async function updateTypeUser(id, typeUser) {
+  await User.update({ typeUser: typeUser }, { where: { id } })
 }
 
 async function deleteUser(id) {
@@ -36,4 +40,5 @@ module.exports = {
   create,
   update,
   deleteUser,
+  updateTypeUser
 };

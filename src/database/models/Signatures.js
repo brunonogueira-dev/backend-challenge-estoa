@@ -7,11 +7,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: DataTypes.INTEGER,
     planId: DataTypes.INTEGER,
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.NOW,
+      get() {
+        const date = this.getDataValue('createdAt');
+        if (date) {
+          return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+        return null;
+      },
+    },
+    expiryDate: {
+      type: DataTypes.STRING(10),
+    },
   },
     {
-      tableName: 'signatures',
-      timestamps: false,
-      underscored: true,
+      tableName: 'signature',
+      timestamps: true,
+      updatedAt: false
     }
   );
 
