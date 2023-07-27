@@ -1,42 +1,86 @@
 # Desafio Backend da Estoa
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor Backend você é.
-
-Provavelmente você já está participando do nosso processo de contratação, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+Sou Guilherme Vargas de Andrade e aqui esta o desafio mandado pela Estoa do seu processo de contratação.
 
 
-## Sobre o desafio
+## Primeiros passos
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+Assim que abri o projeto siga esses passos:
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+1- Altere o arquivo (`.env.example`) para os seus dados do banco de dados (Preferencial mySQL), e altere o nome do arquivo para (`.env`).
 
-O que nós esperamos aprender de você com o desafio:
+2- Apos alterado o arquivo  execute o comando (`npm run db:reset`) em seu terminal para iniciar o banco de dados.
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+3- Em seguida use o comando (`npm run dev`) em seu terminal para iniciar o servidor.
 
-O que nós esperamos que você aprenda sobre a Estoa:
+## Rotas de Users
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
+GET (`/users`) Para verificar todos os usuarios.
 
-## Próximos passos
+GET (`/user/:id`) Para verificar determinado usuario pelo seu ID.
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Preferencialmente utilize uma _branch_ chamada `desafio` ou com o seu nome (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
+POST (`/register`) Para registrar um novo usuario.
 
-## Considerações
+PUT (`/user/:id`) Para fazer alteração nos dados do usuario.
 
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas, porém é de suma importância que use React.js, faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
-- Também leve em consideração que estamos availando como será o seu modo de trabalho no nosso dia a dia. Então, use as melhores práticas de semântica, estruturação, legibilidade e componentização.
+DELETE (`/delUser/:id`) Para deletar determinado Usuario.
 
-## Dúvidas?
+## Rotas de Planos
 
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
+GET (`/plans`) Para verificar todos os Planos.
 
-**Boa sorte!**
+GET (`/plan/:id`) Para verificar determinado Plano pelo seu ID.
+
+POST (`/create`) Para criar um novo Plano.
+
+PUT (`/plan/:id`) Para fazer alteração nos dados do Plano.
+
+DELETE (`/delPlan/:id`) Para deletar determinado Plano.
+
+## Rotas de Assinaturas
+
+GET (`/signature`) Para verificar todas as Assinaturas.
+
+GET (`/signature/:id`) Para verificar determinada Assinatura pelo seu ID.
+
+POST (`/sing`) Para registrar uma nova Assinatura.
+
+DELETE (`/delSig/:id`) Para deletar determinada Assinatura.
+
+
+## Alguns JSON para utilizar
+
+**Cadatrar Usuario**
+
+	"name": "Joaozinho",
+
+	"email": "joaozinho@gmail.com",
+
+	"password": "123456789",
+
+	"typeUser": "Gratis"
+
+
+**Cadatrar Plano**
+
+
+	"name": "vip",
+
+	"price": 20,
+
+	"expiryPeriod": 20
+
+
+**Cadatrar Plano**
+
+
+	"userId": 1,
+
+	"planId":1
+
+
+## Finalizando
+
+Agradeço desde ja pela oportunidade de estar realizando esse teste!
+
+**Obrigado!**
