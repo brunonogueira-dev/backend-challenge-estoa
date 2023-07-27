@@ -4,22 +4,22 @@ import Plan from "../../../models/plan";
 
 
 describe("Plan retrive", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await Plan.destroy({ where: {
             name: {
-                [Op.not]: 'free'
+                [Op.not]: "free"
             }
-        }});
+        } });
     });
 
-    test('test get all retrive an empty list', async () => {
+    test("test get all retrive an empty list", async() => {
         const getter = new GetterAll();
         const plans = await getter.get();
         expect(plans).toHaveLength(1);
-        expect(plans[0].name).toBe('free');
+        expect(plans[0].name).toBe("free");
     }, 100000);
 
-    test('test get all retrive the two created plans', async () => {
+    test("test get all retrive the two created plans", async() => {
         await Plan.bulkCreate([
             { 
                 name: "Test Plan",
@@ -38,7 +38,7 @@ describe("Plan retrive", () => {
         expect(plans).toHaveLength(3);
     }, 100000);
 
-    test('test get plan by pk fail because user does not exist', async () => {
+    test("test get plan by pk fail because user does not exist", async() => {
         const plan = await Plan.create({ 
             name: "Test Plan",
             price: 2000,
@@ -50,7 +50,7 @@ describe("Plan retrive", () => {
         expect(retrivedPlans).toBeNull();
     }, 100000);
 
-    test('test get plan by pk retrived plan instance', async () => {
+    test("test get plan by pk retrived plan instance", async() => {
         const plan = await Plan.create({ 
             name: "Test Plan",
             price: 2000,

@@ -7,16 +7,16 @@ import Signature from "../../../models/signature";
 import User from "../../../models/user";
 
 
-const __createPlan__ = async () => {
+const __createPlan__ = async() => {
     const name = "Test plan";
     const price = 2000;
     const expiration = 2;
 
     const planCreator = new PlanCreator(name, price, expiration);
     return await planCreator.create();
-} 
+}; 
 
-const __createUser__ = async () => {
+const __createUser__ = async() => {
     const email = "test@example.com";
     const name = "Test User";
     const password = "testpassword";
@@ -24,20 +24,20 @@ const __createUser__ = async () => {
 
     const userCreator = new UserCreator(email, name, password, type);
     return await userCreator.create();
-}
+};
 
 describe("Signature creation", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await Signature.destroy({ where: {} });
         await Plan.destroy({ where: {
             name: {
-                [Op.not]: 'free'
+                [Op.not]: "free"
             }
-        }});
+        } });
         await User.destroy({ where: {} });
     });
 
-    test('test ok signature is created', async () => {
+    test("test ok signature is created", async() => {
         const plan = await __createPlan__();
         const user = await __createUser__();
 
@@ -57,11 +57,11 @@ describe("Signature creation", () => {
                 expect(sigPlan).toBe(plan.id);
                 expect(sigUser).toBe(user.id);
                 expect(differenceInDays).toBeGreaterThanOrEqual(29);
-            } else{
-                fail("Failed while trying to create signature")
+            } else {
+                fail("Failed while trying to create signature");
             }
         } else {
-            fail('Failed while trying to create plan and user')
+            fail("Failed while trying to create plan and user");
         }
     }, 100000);
 });

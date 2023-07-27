@@ -4,4 +4,4 @@
 4 - Montar express js e conectar ao db ✅
 5 - Montar rotas ✅
 7 - Fazer Logica de negocio ✅
-8 - Fazer ultimo teste e efetuar pull para o tech lead
+8 - Fazer ultimo teste e efetuar pull para o tech lead ✅

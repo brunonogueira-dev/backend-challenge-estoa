@@ -4,15 +4,15 @@ import Plan from "../../../models/plan";
 
 
 describe("Plan update", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await Plan.destroy({ where: {
             name: {
-                [Op.not]: 'free'
+                [Op.not]: "free"
             }
-        }});
+        } });
     });
 
-    test('test fail because plan was not found', async () => {
+    test("test fail because plan was not found", async() => {
         const updater = new UpdateByPk(0);
 
         try {
@@ -27,7 +27,7 @@ describe("Plan update", () => {
         }
     }, 100000);
 
-    test('test upated name', async () => {
+    test("test upated name", async() => {
         const plan = await Plan.create({ 
             name: "Test Plan",
             price: 2000,
@@ -36,13 +36,13 @@ describe("Plan update", () => {
     
         const updater = new UpdateByPk(plan.id);
         const updatedName = "Updated Name";
-        await updater.update({name: updatedName});
+        await updater.update({ name: updatedName });
     
         const updatedPlan = await Plan.findByPk(plan.id);
         expect(updatedPlan?.name).toBe(updatedName);
     }, 100000);
 
-    test('test upated price', async () => {
+    test("test upated price", async() => {
         const plan = await Plan.create({ 
             name: "Test Plan",
             price: 2000,
@@ -51,13 +51,13 @@ describe("Plan update", () => {
     
         const updater = new UpdateByPk(plan.id);
         const updatedPrice = 3000;
-        await updater.update({price: updatedPrice});
+        await updater.update({ price: updatedPrice });
     
         const updatedPlan = await Plan.findByPk(plan.id);
         expect(updatedPlan?.price).toBe(updatedPrice);
     }, 100000);
 
-    test('test upated expire', async () => {
+    test("test upated expire", async() => {
         const plan = await Plan.create({ 
             name: "Test Plan",
             price: 2000,
@@ -66,13 +66,13 @@ describe("Plan update", () => {
     
         const updater = new UpdateByPk(plan.id);
         const updatedExpire = 3;
-        await updater.update({expiration: updatedExpire});
+        await updater.update({ expiration: updatedExpire });
     
         const updatedPlan = await Plan.findByPk(plan.id);
         expect(updatedPlan?.expiration).toBe(updatedExpire);
     }, 100000);
 
-    test('test updatedAt changed', async () => {
+    test("test updatedAt changed", async() => {
         const plan = await Plan.create({ 
             name: "Test Plan",
             price: 2000,

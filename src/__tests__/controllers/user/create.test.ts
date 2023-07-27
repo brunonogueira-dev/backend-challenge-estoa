@@ -5,11 +5,11 @@ import User from "../../../models/user";
 
 
 describe("User creation", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await User.destroy({ where: {} });
     });
 
-    test('test ok user is created inside the database', async () => {
+    test("test ok user is created inside the database", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const password = "testpassword";
@@ -24,7 +24,7 @@ describe("User creation", () => {
         expect(user?.type).toBe(type);
     }, 100000);
 
-    test('test ok user is created and have signature free', async () => {
+    test("test ok user is created and have signature free", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const password = "testpassword";
@@ -32,7 +32,7 @@ describe("User creation", () => {
 
         const userCreator = new UserCreator(email, name, password, type);
         const user = await userCreator.create();
-        const freePlan = await Plan.findOne({where: {name: 'free'}});
+        const freePlan = await Plan.findOne({ where: { name: "free" } });
 
         const sigs = await Signature.findAll();
 
@@ -48,11 +48,11 @@ describe("User creation", () => {
 
             expect(differenceInDays).toBeGreaterThanOrEqual(29);
         } else {
-            fail('fail to find user and free plan');
+            fail("fail to find user and free plan");
         }
     }, 100000);
 
-    test('test ok user receive user from object', async () => {
+    test("test ok user receive user from object", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const password = "testpassword";
@@ -69,7 +69,7 @@ describe("User creation", () => {
         expect(foundUser?.type).toBe(type);
     }, 100000);
 
-    test('test ok user password is encrypted', async () => {
+    test("test ok user password is encrypted", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const password = "testpassword";
@@ -82,7 +82,7 @@ describe("User creation", () => {
         expect(user?.password).not.toBe(password);
     }, 100000);
 
-    test('test fail because email is in the wrong format', async () => {
+    test("test fail because email is in the wrong format", async() => {
         const email = "invalidemail";
         const name = "Test User";
         const password = "testpassword";
@@ -94,7 +94,7 @@ describe("User creation", () => {
         expect(user).toBeNull();
     }, 100000);
 
-    test('test fail because user with given email already exists', async () => {
+    test("test fail because user with given email already exists", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const password = "testpassword";
@@ -108,7 +108,7 @@ describe("User creation", () => {
         expect(user).toBeNull();
     }, 100000);
 
-    test('test fail because email was not given', async () => {
+    test("test fail because email was not given", async() => {
         const name = "Test User";
         const password = "testpassword";
         const type = "regular";
@@ -119,7 +119,7 @@ describe("User creation", () => {
         expect(user).toBeNull();
     }, 100000);
 
-    test('test fail because name was not given', async () => {
+    test("test fail because name was not given", async() => {
         const email = "test@example.com";
         const password = "testpassword";
         const type = "regular";
@@ -130,7 +130,7 @@ describe("User creation", () => {
         expect(user).toBeNull();
     }, 100000);
 
-    test('test fail because password was not given', async () => {
+    test("test fail because password was not given", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const type = "regular";
@@ -141,7 +141,7 @@ describe("User creation", () => {
         expect(user).toBeNull();
     }, 100000);
 
-    test('test fail because type was not given', async () => {
+    test("test fail because type was not given", async() => {
         const email = "test@example.com";
         const name = "Test User";
         const password = "testpassword";

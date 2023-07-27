@@ -4,11 +4,11 @@ import User from "../../../models/user";
 
 
 describe("User update", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await User.destroy({ where: {} });
     });
 
-    test('test fail because user was not found', async () => {
+    test("test fail because user was not found", async() => {
         const updater = new UpdateByPk(0);
 
         try {
@@ -24,9 +24,9 @@ describe("User update", () => {
         }
     }, 100000);
 
-    test('test upated name', async () => {
+    test("test upated name", async() => {
         const user = await User.create({ 
-            email: 'test@example.com', 
+            email: "test@example.com", 
             name: "Test User", 
             password: "testpassword", 
             type: "regular" 
@@ -34,15 +34,15 @@ describe("User update", () => {
     
         const updater = new UpdateByPk(user.id);
         const updatedName = "Updated Name";
-        await updater.update({name: updatedName});
+        await updater.update({ name: updatedName });
     
         const updatedUser = await User.findByPk(user.id);
         expect(updatedUser?.name).toBe(updatedName);
     }, 100000);
 
-    test('test updated email', async () => {
+    test("test updated email", async() => {
         const user = await User.create({ 
-            email: 'test@example.com', 
+            email: "test@example.com", 
             name: "Test User", 
             password: "testpassword", 
             type: "regular" 
@@ -50,15 +50,15 @@ describe("User update", () => {
     
         const updater = new UpdateByPk(user.id);
         const updatedEmail = "updatedEmail@example.com";
-        await updater.update({email: updatedEmail});
+        await updater.update({ email: updatedEmail });
     
         const updatedUser = await User.findByPk(user.id);
         expect(updatedUser?.email).toBe(updatedEmail);
     }, 100000);
 
-    test('test updated type', async () => {
+    test("test updated type", async() => {
         const user = await User.create({ 
-            email: 'test@example.com', 
+            email: "test@example.com", 
             name: "Test User", 
             password: "testpassword", 
             type: "regular" 
@@ -66,15 +66,15 @@ describe("User update", () => {
     
         const updater = new UpdateByPk(user.id);
         const updatedType = "Updated type";
-        await updater.update({type: updatedType});
+        await updater.update({ type: updatedType });
     
         const updatedUser = await User.findByPk(user.id);
         expect(updatedUser?.type).toBe(updatedType);
     }, 100000);
 
-    test('test updated password', async () => {
+    test("test updated password", async() => {
         const user = await User.create({ 
-            email: 'test@example.com', 
+            email: "test@example.com", 
             name: "Test User", 
             password: "testpassword", 
             type: "regular" 
@@ -83,7 +83,7 @@ describe("User update", () => {
     
         const updater = new UpdateByPk(user.id);
         const updatedPassword = "updated_password";
-        await updater.update({password: updatedPassword});
+        await updater.update({ password: updatedPassword });
     
         const updatedUser = await User.findByPk(user.id);
         expect(updatedUser?.password).not.toBe(oldPassword);
@@ -92,9 +92,9 @@ describe("User update", () => {
         expect(userAutenticated).toBeTruthy();
     }, 100000);
 
-    test('test updatedAt changed', async () => {
+    test("test updatedAt changed", async() => {
         const user = await User.create({ 
-            email: 'test@example.com', 
+            email: "test@example.com", 
             name: "Test User", 
             password: "testpassword", 
             type: "regular" 

@@ -39,12 +39,12 @@ const User = <TUserStatic>db.define("user", {
 }, {
     tableName: "user",
     hooks: {
-        beforeCreate: async (user) => {
+        beforeCreate: async(user) => {
             const hashedPassword = await bcrypt.hash(user.password, 10);
             user.password = hashedPassword;
         },
-        beforeUpdate: async (user) => {
-            if (user.changed('password')) {
+        beforeUpdate: async(user) => {
+            if (user.changed("password")) {
                 const hashedPassword = await bcrypt.hash(user.password, 10);
                 user.password = hashedPassword;
             }
@@ -52,7 +52,7 @@ const User = <TUserStatic>db.define("user", {
     }
 });
 
-User.authenticate = async function (email: string, password: string): TAuthentication {
+User.authenticate = async function(email: string, password: string): TAuthentication {
     const user = await this.findOne({ where: { email } });
     if (!user) return null;
 

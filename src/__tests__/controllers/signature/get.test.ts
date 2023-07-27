@@ -8,16 +8,16 @@ import Signature from "../../../models/signature";
 import User from "../../../models/user";
 
 
-export const __createPlan__ = async (n: number) => {
+export const __createPlan__ = async(n: number) => {
     const name = `Test plan ${n}`;
     const price = 2000;
     const expiration = 2;
 
     const planCreator = new PlanCreator(name, price, expiration);
     return await planCreator.create();
-} 
+}; 
 
-export const __createUser__ = async (n: number) => {
+export const __createUser__ = async(n: number) => {
     const email = `test${n}@example.com`;
     const name = `Test User${n}`;
     const password = "testpassword";
@@ -25,16 +25,16 @@ export const __createUser__ = async (n: number) => {
 
     const userCreator = new UserCreator(email, name, password, type);
     return await userCreator.create();
-}
+};
 
 describe("Signature retrive", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await Signature.destroy({ where: {} });
         await Plan.destroy({ where: {
             name: {
-                [Op.not]: 'free'
+                [Op.not]: "free"
             }
-        }});
+        } });
         await User.destroy({ where: {} });
 
         for (let i = 0; i < 2; i++) {
@@ -46,12 +46,12 @@ describe("Signature retrive", () => {
         }
     });
 
-    test('test get by user and retrive users and plans', async () => {
+    test("test get by user and retrive users and plans", async() => {
         const plans = await Plan.findAll({ where: {
             name: {
-                [Op.not]: 'free'
+                [Op.not]: "free"
             }
-        }});
+        } });
         const users = await User.findAll();
 
         const creator1 = new SignatureCreator(users[0], plans[0]);
@@ -64,8 +64,8 @@ describe("Signature retrive", () => {
         await creator3.create();
 
         const freePlan = await Plan.findAll({ where: {
-            name: 'free'
-        }});
+            name: "free"
+        } });
 
         const getter1 = new GetSignatureByUserPk(users[0].id);
         let signatures1 = await getter1.get();
@@ -91,7 +91,7 @@ describe("Signature retrive", () => {
         expect(signatures2[0].planId).toBe(plans[0].id);
     }, 100000);
 
-    test('test get user by signature pk', async () => {
+    test("test get user by signature pk", async() => {
         const plans = await Plan.findAll();
         const users = await User.findAll();
 
@@ -110,13 +110,10 @@ describe("Signature retrive", () => {
         }
 
         const getter2 = new GetUserSignaturePk(-1);
-        try {
-            const user = await getter2.get();
+        const user = await getter2.get();
 
-            if (user) {
-                fail("Should have thrown an error");
-            }
-        } catch(_) {
+        if (user) {
+            fail("Should have thrown an error");
         }
     }, 100000);
 });

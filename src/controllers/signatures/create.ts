@@ -8,18 +8,18 @@ export default class SignatureCreator {
     private user: IUserModel;
     private plan: IPlanModel;
 
-    constructor (user: IUserModel, plan: IPlanModel) {
+    constructor(user: IUserModel, plan: IPlanModel) {
         this.user = user;
         this.plan = plan;
     }
 
     async create(): Promise<ISignatureModel | null> {
-        let expireAtValue = new Date();
+        const expireAtValue = new Date();
 
         const planExpirationInDays = this.plan.expiration * 30;
         expireAtValue.setDate(expireAtValue.getDate() + planExpirationInDays);
 
-        try{
+        try {
             const newSignature = await Signature.create({
                 expiration: expireAtValue,
                 userId: this.user.id,
@@ -27,7 +27,7 @@ export default class SignatureCreator {
             });
             newSignature.reload();
             return newSignature;
-        } catch(e) {
+        } catch (e) {
             console.log(e);
             return null;
         }

@@ -3,15 +3,15 @@ import User from "../../../models/user";
 
 
 describe("User filter", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await User.destroy({ where: {} });
     });
 
-    test('test filter by name', async () => {
+    test("test filter by name", async() => {
         await User.bulkCreate([
-            { email: 'user1@example.com', name: "User One", password: "password1", type: "regular" },
-            { email: 'user2@example.com', name: "User Two", password: "password2", type: "regular" },
-            { email: 'user3@example.com', name: "User Three", password: "password3", type: "regular" },
+            { email: "user1@example.com", name: "User One", password: "password1", type: "regular" },
+            { email: "user2@example.com", name: "User Two", password: "password2", type: "regular" },
+            { email: "user3@example.com", name: "User Three", password: "password3", type: "regular" },
         ]);
 
         const filter = new Filter();
@@ -23,11 +23,11 @@ describe("User filter", () => {
         expect(filteredUsers[0].name).toBe("User One");
     });
 
-    test('test filter by createdAt without operator', async () => {
+    test("test filter by createdAt without operator", async() => {
         await User.bulkCreate([
-            { email: 'user1@example.com', name: "User One", password: "password1", type: "regular"},
-            { email: 'user2@example.com', name: "User Two", password: "password2", type: "regular"},
-            { email: 'user3@example.com', name: "User Three", password: "password3", type: "regular"},
+            { email: "user1@example.com", name: "User One", password: "password1", type: "regular" },
+            { email: "user2@example.com", name: "User Two", password: "password2", type: "regular" },
+            { email: "user3@example.com", name: "User Three", password: "password3", type: "regular" },
         ]);
 
         const users = await User.findAll();
@@ -40,24 +40,24 @@ describe("User filter", () => {
         expect(filteredUsers).toHaveLength(3);
     });
 
-    test('test filter by createdAt with operator', async () => {
+    test("test filter by createdAt with operator", async() => {
         await User.bulkCreate([
-            { email: 'user1@example.com', name: "User One", password: "password1", type: "regular"},
-            { email: 'user2@example.com', name: "User Two", password: "password2", type: "regular"},
-            { email: 'user3@example.com', name: "User Three", password: "password3", type: "regular"},
+            { email: "user1@example.com", name: "User One", password: "password1", type: "regular" },
+            { email: "user2@example.com", name: "User Two", password: "password2", type: "regular" },
+            { email: "user3@example.com", name: "User Three", password: "password3", type: "regular" },
         ]);
 
         await new Promise(resolve => setTimeout(resolve, 1000));
         const userMeio = await User.create({ 
-            email: 'user4@example.com', 
+            email: "user4@example.com", 
             name: "User Four", 
             password: "password4", 
             type: "regular"
         });
 
         await new Promise(resolve => setTimeout(resolve, 1000));
-        const userFinal = await User.create({ 
-            email: 'user5@example.com', 
+        await User.create({ 
+            email: "user5@example.com", 
             name: "User Five", 
             password: "password5", 
             type: "regular"

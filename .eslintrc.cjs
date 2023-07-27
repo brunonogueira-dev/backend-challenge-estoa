@@ -5,8 +5,7 @@ module.exports = {
     extends: [
       'eslint:recommended',
       'plugin:@typescript-eslint/recommended',
-      'prettier/@typescript-eslint',
-      'plugin:prettier/recommended',
+      'prettier',
     ],
     rules: {
         'indent': ['error', 4],
@@ -20,8 +19,7 @@ module.exports = {
         'object-curly-spacing': ['error', 'always'],
         'func-call-spacing': 'error',
         'no-mixed-spaces-and-tabs': 'error',
-        'eqeqeq': 'off',
-        '@typescript-eslint/no-explicit-any': 'on',
-        '@typescript-eslint/require-await': 'on',
+        'eqeqeq': 'error',
+        '@typescript-eslint/no-explicit-any': 'off',
     },
 };

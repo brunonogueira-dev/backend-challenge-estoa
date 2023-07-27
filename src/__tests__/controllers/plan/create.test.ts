@@ -4,15 +4,15 @@ import Plan from "../../../models/plan";
 
 
 describe("Plan creation", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await Plan.destroy({ where: {
             name: {
-                [Op.not]: 'free'
+                [Op.not]: "free"
             }
-        }});
+        } });
     });
 
-    test('test ok plan is created inside the database', async () => {
+    test("test ok plan is created inside the database", async() => {
         const name = "Test plan";
         const price = 2000;
         const expiration = 2;
@@ -25,7 +25,7 @@ describe("Plan creation", () => {
         expect(plan?.expiration).toBe(expiration);
     }, 100000);
 
-    test('test ok plan receive plan from object', async () => {
+    test("test ok plan receive plan from object", async() => {
         const name = "Test plan";
         const price = 2000;
         const expiration = 2;
@@ -41,7 +41,7 @@ describe("Plan creation", () => {
         expect(foundPlan?.expiration).toBe(expiration);
     }, 100000);
 
-    test('test fail because name was not given', async () => {
+    test("test fail because name was not given", async() => {
         const name = "";
         const price = 2000;
         const expiration = 2;
@@ -52,8 +52,8 @@ describe("Plan creation", () => {
         expect(plan).toBeNull();
     }, 100000);
 
-    test('test fail because expiration cant be zero', async () => {
-        const name = 'Test plan';
+    test("test fail because expiration cant be zero", async() => {
+        const name = "Test plan";
         const price = 2000;
         const expiration = 0;
 

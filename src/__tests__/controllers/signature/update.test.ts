@@ -8,16 +8,16 @@ import Signature from "../../../models/signature";
 import User from "../../../models/user";
 
 
-const __createPlan__ = async (n: number) => {
+const __createPlan__ = async(n: number) => {
     const name = `Test plan ${n}`;
     const price = 2000;
     const expiration = 2;
 
     const planCreator = new PlanCreator(name, price, expiration);
     return await planCreator.create();
-} 
+}; 
 
-const __createUser__ = async (n: number) => {
+const __createUser__ = async(n: number) => {
     const email = `test${n}@example.com`;
     const name = `Test User${n}`;
     const password = "testpassword";
@@ -25,16 +25,16 @@ const __createUser__ = async (n: number) => {
 
     const userCreator = new UserCreator(email, name, password, type);
     return await userCreator.create();
-}
+};
 
 describe("Signature change plan", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await Signature.destroy({ where: {} });
         await Plan.destroy({ where: {
             name: {
-                    [Op.not]: 'free'
-                }
-        }}); 
+                [Op.not]: "free"
+            }
+        } }); 
         await User.destroy({ where: {} });
 
         for (let i = 0; i < 2; i++) {
@@ -46,12 +46,12 @@ describe("Signature change plan", () => {
         }
     });
 
-    test("test plan changed", async () => {
+    test("test plan changed", async() => {
         const plans = await Plan.findAll({ where: {
             name: {
-                    [Op.not]: 'free'
-                }
-        }});
+                [Op.not]: "free"
+            }
+        } });
         const users = await User.findAll();
 
         const creator = new SignatureCreator(users[0], plans[0]);
@@ -67,12 +67,12 @@ describe("Signature change plan", () => {
         }
     }, 100000);
 
-    test("test fail because cant find signature", async () => {
+    test("test fail because cant find signature", async() => {
         const plans = await Plan.findAll({ where: {
             name: {
-                    [Op.not]: 'free'
-                }
-        }});
+                [Op.not]: "free"
+            }
+        } });
         const users = await User.findAll();
 
         const creator = new SignatureCreator(users[0], plans[0]);
@@ -81,7 +81,7 @@ describe("Signature change plan", () => {
         if (sig) {
             const updater = new ChangeSignature(sig.id + 5, plans[1]);
             try {
-                const sigUpdated = await updater.change();
+                await updater.change();
                 fail("Expected update to fail, but it succeeded.");
             } catch (error: any) {
                 expect(error.message).toBe("Signature not found");

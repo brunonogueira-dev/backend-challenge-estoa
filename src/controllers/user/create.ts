@@ -11,15 +11,15 @@ export default class UserCreator {
     private type: string;
   
     constructor(email: string, name: string, password: string, type: string) {
-      this.email = email;
-      this.name = name;
-      this.password = password;
-      this.type = type;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.type = type;
     }
 
     async reverseCreation(user: IUserModel): Promise<null> {
-      await user.destroy();
-      return null;
+        await user.destroy();
+        return null;
     }
 
     async create(): Promise<IUserModel | null> {
@@ -34,7 +34,7 @@ export default class UserCreator {
 
             if (!user) return null;
 
-            const freePlan = await Plan.findOne({where: { name: 'free'}});
+            const freePlan = await Plan.findOne({ where: { name: "free" } });
 
             if (!freePlan) return await this.reverseCreation(user);
 
@@ -46,8 +46,8 @@ export default class UserCreator {
             await user.reload();
             return user;
         } catch (e) {
-          console.log("Failed while trying to create the user");
-          return null;
+            console.log("Failed while trying to create the user");
+            return null;
         }
     }
 }

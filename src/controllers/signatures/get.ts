@@ -6,8 +6,8 @@ import { IUserModel } from "../../types/models/user";
 export class GetSignatureByUserPk {
     private userId: number;
 
-    constructor (userId: number) {
-        this.userId = userId
+    constructor(userId: number) {
+        this.userId = userId;
     };
 
     async get(): Promise<ISignatureModel[]> {
@@ -15,15 +15,15 @@ export class GetSignatureByUserPk {
             where: {
                 userId: this.userId
             }
-        })
+        });
     }
 }
 
 export class GetUserSignaturePk {
     private pk: number;
 
-    constructor (pk: number) {
-        this.pk = pk
+    constructor(pk: number) {
+        this.pk = pk;
     };
 
     async get(): Promise<IUserModel | null> {

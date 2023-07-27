@@ -3,13 +3,13 @@ import User from "../../../models/user";
 
 
 describe("User deletion", () => {
-    beforeEach(async () => {
+    beforeEach(async() => {
         await User.destroy({ where: {} });
     });
 
-    test('test delete ok', async () => {
+    test("test delete ok", async() => {
         const user = await User.create({ 
-            email: 'test@example.com', 
+            email: "test@example.com", 
             name: "Test User", 
             password: "testpassword", 
             type: "regular" 
@@ -22,12 +22,12 @@ describe("User deletion", () => {
         expect(deletedUser).toBeNull();
     }, 100000);
 
-    test('test delete fail because user not found', async () => {
+    test("test delete fail because user not found", async() => {
         const deleter = new DeleteByPk(1);
         try {
             await deleter.delete();
             fail("Expected delete to fail, but it succeeded.");
-        } catch(e: any) {
+        } catch (e: any) {
             expect(e.message).toBe("User not found");
         }
     }, 100000);
