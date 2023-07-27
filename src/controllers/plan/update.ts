@@ -1,11 +1,8 @@
 import Plan from "../../models/plan";
+import { IUpdateOptions } from "../../types/controllers/plan";
 
 
-interface UpdateOptions {
-    name?: string;
-    price?: number;
-    expiration?: number;
-}
+
 
 export class UpdateByPk {
     private pk: number;
@@ -14,7 +11,7 @@ export class UpdateByPk {
         this.pk = pk
     }
 
-    async update(options: UpdateOptions) {
+    async update(options: IUpdateOptions) {
         const plan = await Plan.findByPk(this.pk);
 
         if(plan) {

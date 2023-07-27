@@ -1,17 +1,17 @@
 import Signature from "../../models/signature";
-import { PlanModel } from "../../types/models/plan";
-import { SignatureModel } from "../../types/models/signature";
+import { IPlanModel } from "../../types/models/plan";
+import { ISignatureModel } from "../../types/models/signature";
 
 export default class ChangeSignature {
     private signatureId: number;
-    private plan: PlanModel;
+    private plan: IPlanModel;
 
-    constructor (signatureId: number, plan: PlanModel) {
+    constructor (signatureId: number, plan: IPlanModel) {
         this.signatureId = signatureId
         this.plan = plan
     };
 
-    async change(): Promise<SignatureModel> {
+    async change(): Promise<ISignatureModel> {
         const signature = await Signature.findByPk(this.signatureId);
         if (signature) {
             await signature.set({ planId: this.plan.id});

@@ -1,7 +1,5 @@
 import Plan from "../../models/plan";
-import { PlanAttributes, PlanModel } from "../../types/models/plan";
-
-type TCreator = PlanModel | null; 
+import { IPlanAttributes, IPlanModel } from "../../types/models/plan";
 
 export default class PlanCreator {
     private name: string;
@@ -14,14 +12,14 @@ export default class PlanCreator {
       this.price = price;
     }
 
-    async create(): Promise<TCreator> {
+    async create(): Promise<IPlanModel | null> {
         try {
-            const planAttributes: PlanAttributes = {
+            const IPlanAttributes: IPlanAttributes = {
                 name: this.name,
                 expiration: this.expiration,
                 price: this.price,
             };
-            const plan = await Plan.create(planAttributes);
+            const plan = await Plan.create(IPlanAttributes);
             return plan;
         } catch (e) {
           console.log("Failed while trying to create the plan");

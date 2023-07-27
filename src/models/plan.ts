@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
 import db from "../configs/db";
-import { PlanStatic } from "../types/models/plan";
+import { TPlanStatic } from "../types/models/plan";
 
 
-const Plan = <PlanStatic>db.define("plan",
+const Plan = <TPlanStatic>db.define("plan",
     {
         name: {
             type: DataTypes.STRING,

@@ -1,7 +1,6 @@
 import User from "../../models/user";
-import { UserModel } from "../../types/models/user";
+import { IUserModel } from "../../types/models/user";
 
-type TGetOne = UserModel | null;
 
 export class GetterByPk {
     private pk: number;
@@ -10,7 +9,7 @@ export class GetterByPk {
         this.pk = pk
     }
 
-    async get(): Promise<TGetOne> {
+    async get(): Promise<IUserModel | null> {
         return await User.findByPk(this.pk);
     }
 }
@@ -18,7 +17,7 @@ export class GetterByPk {
 export class GetterAll {
     constructor () {}
 
-    async get(): Promise<UserModel[]> {
+    async get(): Promise<IUserModel[]> {
         return await User.findAll();
     }
 }

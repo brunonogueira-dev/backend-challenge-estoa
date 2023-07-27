@@ -1,7 +1,7 @@
 import Signature from "../../models/signature";
 import User from "../../models/user";
-import { SignatureModel } from "../../types/models/signature";
-import { UserModel } from "../../types/models/user";
+import { ISignatureModel } from "../../types/models/signature";
+import { IUserModel } from "../../types/models/user";
 
 export class GetSignatureByUserPk {
     private userId: number;
@@ -10,7 +10,7 @@ export class GetSignatureByUserPk {
         this.userId = userId
     };
 
-    async get(): Promise<SignatureModel[]> {
+    async get(): Promise<ISignatureModel[]> {
         return await Signature.findAll({
             where: {
                 userId: this.userId
@@ -26,7 +26,7 @@ export class GetUserSignaturePk {
         this.pk = pk
     };
 
-    async get(): Promise<UserModel | null> {
+    async get(): Promise<IUserModel | null> {
         const signature = await Signature.findByPk(this.pk);
         
         if (signature) {

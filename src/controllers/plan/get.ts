@@ -1,7 +1,6 @@
 import Plan from "../../models/plan";
-import { PlanModel } from "../../types/models/plan";
+import { IPlanModel } from "../../types/models/plan";
 
-type TGetOne = PlanModel | null;
 
 export class GetterByPk {
     private pk: number;
@@ -10,7 +9,7 @@ export class GetterByPk {
         this.pk = pk
     }
 
-    async get(): Promise<TGetOne> {
+    async get(): Promise<IPlanModel | null> {
         return await Plan.findByPk(this.pk);
     }
 }
@@ -18,7 +17,7 @@ export class GetterByPk {
 export class GetterAll {
     constructor () {}
 
-    async get(): Promise<PlanModel[]> {
+    async get(): Promise<IPlanModel[]> {
         return await Plan.findAll();
     }
 }

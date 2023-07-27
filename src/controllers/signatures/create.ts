@@ -1,20 +1,19 @@
 import Signature from "../../models/signature";
-import { PlanModel } from "../../types/models/plan";
-import { SignatureModel } from "../../types/models/signature";
-import { UserModel } from "../../types/models/user";
+import { IPlanModel } from "../../types/models/plan";
+import { ISignatureModel } from "../../types/models/signature";
+import { IUserModel } from "../../types/models/user";
 
-type TCreator = SignatureModel | null; 
 
 export default class SignatureCreator {
-    private user: UserModel;
-    private plan: PlanModel;
+    private user: IUserModel;
+    private plan: IPlanModel;
 
-    constructor (user: UserModel, plan: PlanModel) {
+    constructor (user: IUserModel, plan: IPlanModel) {
         this.user = user;
         this.plan = plan;
     }
 
-    async create(): Promise<TCreator> {
+    async create(): Promise<ISignatureModel | null> {
         let expireAtValue = new Date();
 
         const planExpirationInDays = this.plan.expiration * 30;

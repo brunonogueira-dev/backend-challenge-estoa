@@ -1,9 +1,8 @@
 import Plan from "../../models/plan";
 import User from "../../models/user";
-import { UserAttributes, UserModel } from "../../types/models/user";
+import { IUserAttributes, IUserModel } from "../../types/models/user";
 import SignatureCreator from "../signatures/create";
 
-type TCreator = UserModel | null; 
 
 export default class UserCreator {
     private email: string;
@@ -18,20 +17,20 @@ export default class UserCreator {
       this.type = type;
     }
 
-    async reverseCreation(user: UserModel): Promise<null> {
+    async reverseCreation(user: IUserModel): Promise<null> {
       await user.destroy();
       return null;
     }
 
-    async create(): Promise<TCreator> {
+    async create(): Promise<IUserModel | null> {
         try {
-            const userAttributes: UserAttributes = {
+            const IUserAttributes: IUserAttributes = {
                 name: this.name,
                 email: this.email,
                 password: this.password,
                 type: this.type
             };
-            const user = await User.create(userAttributes);
+            const user = await User.create(IUserAttributes);
 
             if (!user) return null;
 

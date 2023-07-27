@@ -1,11 +1,11 @@
 import { DataTypes } from "sequelize";
 import db from "../configs/db";
 import bcrypt from "bcryptjs";
-import { UserStatic, TAuthentication } from "../types/models/user";
+import { TUserStatic, TAuthentication } from "../types/models/user";
 
 
 
-const User = <UserStatic>db.define("user", {
+const User = <TUserStatic>db.define("user", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,

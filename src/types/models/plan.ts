@@ -1,6 +1,6 @@
 import { Model, BuildOptions } from "sequelize";
 
-export interface PlanAttributes {
+export interface IPlanAttributes {
     name: string;
     price: number;
     expiration: number;
@@ -8,10 +8,10 @@ export interface PlanAttributes {
     readonly updatedAt?: Date;
 }
 
-export interface PlanModel extends Model<PlanAttributes>, PlanAttributes {
+export interface IPlanModel extends Model<IPlanAttributes>, IPlanAttributes {
     id: number;
 };
 
-export type PlanStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): PlanModel;
+export type TPlanStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): IPlanModel;
 };

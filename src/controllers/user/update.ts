@@ -1,12 +1,7 @@
 import User from "../../models/user";
-import { UserModel } from "../../types/models/user";
+import { IUpdateOptions } from "../../types/controllers/user";
+import { IUserModel } from "../../types/models/user";
 
-interface UpdateOptions {
-    email?: string;
-    name?: string;
-    type?: string;
-    password?: string;
-}
 
 export class UpdateByPk {
     private pk: number;
@@ -15,7 +10,7 @@ export class UpdateByPk {
         this.pk = pk
     }
 
-    async update(options: UpdateOptions): Promise<UserModel> {
+    async update(options: IUpdateOptions): Promise<IUserModel> {
         const user = await User.findByPk(this.pk);
 
         if(user) {

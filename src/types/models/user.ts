@@ -1,8 +1,6 @@
 import { Model, BuildOptions } from "sequelize";
 
-export type TAuthentication = Promise<UserModel | null>;
-
-export interface UserAttributes {
+export interface IUserAttributes {
     name: string;
     email: string;
     password: string;
@@ -11,11 +9,13 @@ export interface UserAttributes {
     readonly updatedAt?: Date;
 }
 
-export interface UserModel extends Model<UserAttributes>, UserAttributes {
+export interface IUserModel extends Model<IUserAttributes>, IUserAttributes {
     id: number;
 };
 
-export type UserStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): UserModel;
+export type TAuthentication = Promise<IUserModel | null>;
+
+export type TUserStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): IUserModel;
     authenticate(email: string, password: string): TAuthentication;
 };

@@ -1,8 +1,6 @@
 import { Model, BuildOptions } from "sequelize";
-import { PlanModel } from "./plan";
-import { UserModel } from "./user";
 
-export interface SignatureAttributes {
+export interface ISignatureAttributes {
     readonly id?: number,
     readonly expiration?: Date;
     readonly createdAt?: Date;
@@ -11,13 +9,10 @@ export interface SignatureAttributes {
     readonly planId: number
 };
 
-export interface SignatureModel extends Model<SignatureAttributes>, SignatureAttributes {
-    id: number,
-    getPlans(): PlanModel[],
-    getUsers(): UserModel[],
-    setPlans(ids: number[]): any;
+export interface ISignatureModel extends Model<ISignatureAttributes>, ISignatureAttributes {
+    id: number
 };
 
-export type SignatureStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): SignatureModel;
+export type TSignatureStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): ISignatureModel;
 };
