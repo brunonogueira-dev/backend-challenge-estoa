@@ -25,6 +25,7 @@ export default class SignatureCreator {
                 userId: this.user.id,
                 planId: this.plan.id
             });
+            newSignature.reload();
             return newSignature;
         } catch(e) {
             console.log(e);

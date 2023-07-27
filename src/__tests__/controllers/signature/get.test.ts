@@ -8,7 +8,7 @@ import Signature from "../../../models/signature";
 import User from "../../../models/user";
 
 
-const __createPlan__ = async (n: number) => {
+export const __createPlan__ = async (n: number) => {
     const name = `Test plan ${n}`;
     const price = 2000;
     const expiration = 2;
@@ -17,7 +17,7 @@ const __createPlan__ = async (n: number) => {
     return await planCreator.create();
 } 
 
-const __createUser__ = async (n: number) => {
+export const __createUser__ = async (n: number) => {
     const email = `test${n}@example.com`;
     const name = `Test User${n}`;
     const password = "testpassword";

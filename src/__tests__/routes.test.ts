@@ -6,10 +6,13 @@ import { app } from "../server";
 import User from '../models/user';
 import UserCreator from '../controllers/user/create';
 import Signature from '../models/signature';
+import { __createPlan__, __createUser__ } from './controllers/signature/get.test';
+import SignatureCreator from '../controllers/signatures/create';
 
 const expressApp = app;
 const plansUrl = '/plans/';
 const usersUrl = '/users/';
+const signaturesUrl = '/signatures';
 
 describe('Delete plan route', () => {
 
@@ -637,6 +640,221 @@ describe('Update user route', () => {
             expect(res.status).toBe(400)
         } else {
             fail('error');
+        }
+    }, 100000);
+});
+
+describe('Get signature route', () => {
+    beforeEach(async () => {
+        await Signature.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        await User.destroy({ where: {} });
+
+        for (let i = 0; i < 2; i++) {
+            await __createPlan__(i);
+        }
+    
+        for (let i = 0; i < 2; i++) {
+            await __createUser__(i);
+        }
+    }, 1000000);
+
+    test('Get signature by user id', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+
+        const creator1 = new SignatureCreator(users[0], plans[0]);
+        await creator1.create();
+
+        const creator2 = new SignatureCreator(users[0], plans[1]);
+        await creator2.create();
+
+        const creator3 = new SignatureCreator(users[1], plans[0]);
+        await creator3.create();
+       
+        const res = await request(expressApp).get(`${signaturesUrl}/get-by-user/${users[0].id}/`);
+        const res2 = await request(expressApp).get(`${signaturesUrl}/get-by-user/${users[1].id}/`);
+        const res3 = await request(expressApp).get(`${signaturesUrl}/get-by-user/${users[1].id+1}/`);
+
+        expect(res.body.signatures).toHaveLength(3);
+        expect(res2.body.signatures).toHaveLength(2);
+        expect(res3.body.signatures).toHaveLength(0);
+    }, 100000);
+
+    test('Get user by signature', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+
+        const creator3 = new SignatureCreator(users[1], plans[0]);
+        const sig = await creator3.create();
+       
+        if (sig) {
+            const res = await request(expressApp).get(`${signaturesUrl}/get-user/${sig.id}/`);
+
+            expect(res.body.user.id).toBe(users[1].id);
+        } else {
+            fail('fail');
+        }
+    }, 100000);
+});
+
+describe('Create signature route', () => {
+    beforeEach(async () => {
+        await Signature.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        await User.destroy({ where: {} });
+
+        for (let i = 0; i < 2; i++) {
+            await __createPlan__(i);
+        }
+    
+        for (let i = 0; i < 2; i++) {
+            await __createUser__(i);
+        }
+    }, 1000000);
+
+    test('test ok', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+       
+        const payload = {
+            userId: users[0].id,
+            planId: plans[0].id
+        }
+
+        const res = await request(expressApp).post(`${signaturesUrl}/`).send(payload);
+
+        expect(res.status).toBe(201);
+        expect(res.body.signature.userId).toBe(payload.userId);
+        expect(res.body.signature.planId).toBe(payload.planId);
+    }, 100000);
+
+    test('test fail because plan does not exist', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+       
+        const payload = {
+            userId: users[0].id,
+            planId: plans[1].id+1
+        }
+
+        const res = await request(expressApp).post(`${signaturesUrl}/`).send(payload);
+
+        expect(res.status).toBe(404);
+        expect(res.body.message).toBe('Plan not found');
+    }, 100000);
+
+    test('test fail because user does not exist', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+       
+        const payload = {
+            userId: users[1].id+1,
+            planId: plans[1].id
+        }
+
+        const res = await request(expressApp).post(`${signaturesUrl}/`).send(payload);
+
+        expect(res.status).toBe(404);
+        expect(res.body.message).toBe('User not found');
+    }, 100000);
+});
+
+describe('Change signature route', () => {
+    beforeEach(async () => {
+        await Signature.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        await User.destroy({ where: {} });
+
+        for (let i = 0; i < 2; i++) {
+            await __createPlan__(i);
+        }
+    
+        for (let i = 0; i < 2; i++) {
+            await __createUser__(i);
+        }
+    }, 1000000);
+
+    test('test ok', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+
+        const creator1 = new SignatureCreator(users[0], plans[0]);
+        const sig = await creator1.create();
+
+        const payload = {
+            planId: plans[1].id
+        }
+
+        if (sig) {
+            const res = await request(expressApp).put(`${signaturesUrl}/${sig.id}`).send(payload);
+
+            expect(res.status).toBe(200);
+            expect(res.body.signature.userId).toBe(sig.userId);
+            expect(res.body.signature.planId).toBe(payload.planId);
+        } else {
+            fail('failed');
+        }
+    }, 100000);
+
+    test('test fail because plan does not exist', async () => {
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
+        const users = await User.findAll();
+
+        const creator1 = new SignatureCreator(users[0], plans[0]);
+        const sig = await creator1.create();
+
+        const payload = {
+            planId: plans[1].id+1
+        }
+
+        if (sig) {
+            const res = await request(expressApp).put(`${signaturesUrl}/${sig.id}`).send(payload);
+
+            expect(res.status).toBe(404);
+            expect(res.body.message).toBe('Plan not found');
+        } else {
+            fail('failed');
         }
     }, 100000);
 });
