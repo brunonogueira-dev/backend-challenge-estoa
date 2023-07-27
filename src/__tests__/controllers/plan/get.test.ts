@@ -1,17 +1,22 @@
-import { GetterAll, GetterByPk } from "../../../src/controllers/plan/get";
-import Plan from "../../../src/models/plan";
-
+import { Op } from "sequelize";
+import { GetterAll, GetterByPk } from "../../../controllers/plan/get";
+import Plan from "../../../models/plan";
 
 
 describe("Plan retrive", () => {
     beforeEach(async () => {
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
     });
 
     test('test get all retrive an empty list', async () => {
         const getter = new GetterAll();
         const plans = await getter.get();
-        expect(plans).toHaveLength(0);
+        expect(plans).toHaveLength(1);
+        expect(plans[0].name).toBe('free');
     }, 100000);
 
     test('test get all retrive the two created plans', async () => {
@@ -30,7 +35,7 @@ describe("Plan retrive", () => {
 
         const getter = new GetterAll();
         const plans = await getter.get();
-        expect(plans).toHaveLength(2);
+        expect(plans).toHaveLength(3);
     }, 100000);
 
     test('test get plan by pk fail because user does not exist', async () => {

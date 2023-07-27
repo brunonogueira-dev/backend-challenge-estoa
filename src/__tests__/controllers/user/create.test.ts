@@ -1,5 +1,7 @@
-import UserCreator from "../../../src/controllers/user/create";
-import User from "../../../src/models/user";
+import UserCreator from "../../../controllers/user/create";
+import Plan from "../../../models/plan";
+import Signature from "../../../models/signature";
+import User from "../../../models/user";
 
 
 describe("User creation", () => {
@@ -15,11 +17,39 @@ describe("User creation", () => {
 
         const userCreator = new UserCreator(email, name, password, type);
         const user = await userCreator.create();
-        console.log(user)
+
         expect(user).toBeTruthy();
         expect(user?.name).toBe(name);
         expect(user?.email).toBe(email);
         expect(user?.type).toBe(type);
+    }, 100000);
+
+    test('test ok user is created and have signature free', async () => {
+        const email = "test@example.com";
+        const name = "Test User";
+        const password = "testpassword";
+        const type = "regular";
+
+        const userCreator = new UserCreator(email, name, password, type);
+        const user = await userCreator.create();
+        const freePlan = await Plan.findOne({where: {name: 'free'}});
+
+        const sigs = await Signature.findAll();
+
+        if (user && freePlan) {
+            expect(sigs).toHaveLength(1);
+            expect(sigs[0].userId).toBe(user.id);
+            expect(sigs[0].planId).toBe(freePlan.id);
+
+            const now = Date.now();
+            const SigExpire = sigs[0].expiration?.getTime() || 0;
+            const differenceInMilliseconds = SigExpire - now;
+            const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+            expect(differenceInDays).toBeGreaterThanOrEqual(29);
+        } else {
+            fail('fail to find user and free plan');
+        }
     }, 100000);
 
     test('test ok user receive user from object', async () => {

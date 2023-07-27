@@ -1,9 +1,11 @@
-import PlanCreator from "../../../src/controllers/plan/create";
-import SignatureCreator from "../../../src/controllers/signatures/create";
-import UserCreator from "../../../src/controllers/user/create";
-import Plan from "../../../src/models/plan";
-import Signature from "../../../src/models/signature";
-import User from "../../../src/models/user";
+import { Op } from "sequelize";
+import PlanCreator from "../../../controllers/plan/create";
+import SignatureCreator from "../../../controllers/signatures/create";
+import UserCreator from "../../../controllers/user/create";
+import Plan from "../../../models/plan";
+import Signature from "../../../models/signature";
+import User from "../../../models/user";
+
 
 const __createPlan__ = async () => {
     const name = "Test plan";
@@ -27,7 +29,11 @@ const __createUser__ = async () => {
 describe("Signature creation", () => {
     beforeEach(async () => {
         await Signature.destroy({ where: {} });
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
         await User.destroy({ where: {} });
     });
 

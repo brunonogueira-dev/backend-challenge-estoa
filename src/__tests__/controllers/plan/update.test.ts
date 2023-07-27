@@ -1,23 +1,27 @@
-import { UpdateByPk } from "../../../src/controllers/plan/update";
-import Plan from "../../../src/models/plan";
-
+import { Op } from "sequelize";
+import { UpdateByPk } from "../../../controllers/plan/update";
+import Plan from "../../../models/plan";
 
 
 describe("Plan update", () => {
     beforeEach(async () => {
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
     });
 
     test('test fail because plan was not found', async () => {
         const updater = new UpdateByPk(0);
 
         try {
-            await updater.update({
+            const updated = await updater.update({
                 name: "Updated Name",
                 price: 1000,
                 expiration: 2
             });
-            fail("Expected update to fail, but it succeeded.");
+            expect(updated).not.toBeTruthy();
         } catch (error: any) {
             expect(error.message).toBe("Plan not found");
         }

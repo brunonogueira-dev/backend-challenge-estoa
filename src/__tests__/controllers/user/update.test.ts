@@ -1,5 +1,6 @@
-import { UpdateByPk } from "../../../src/controllers/user/update";
-import User from "../../../src/models/user";
+import { UpdateByPk } from "../../../controllers/user/update";
+import User from "../../../models/user";
+
 
 
 describe("User update", () => {

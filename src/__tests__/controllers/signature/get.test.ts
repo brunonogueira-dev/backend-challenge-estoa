@@ -1,10 +1,12 @@
-import PlanCreator from "../../../src/controllers/plan/create";
-import SignatureCreator from "../../../src/controllers/signatures/create";
-import { GetSignatureByUserPk, GetUserSignaturePk } from "../../../src/controllers/signatures/get";
-import UserCreator from "../../../src/controllers/user/create";
-import Plan from "../../../src/models/plan";
-import Signature from "../../../src/models/signature";
-import User from "../../../src/models/user";
+import { Op } from "sequelize";
+import PlanCreator from "../../../controllers/plan/create";
+import SignatureCreator from "../../../controllers/signatures/create";
+import { GetSignatureByUserPk, GetUserSignaturePk } from "../../../controllers/signatures/get";
+import UserCreator from "../../../controllers/user/create";
+import Plan from "../../../models/plan";
+import Signature from "../../../models/signature";
+import User from "../../../models/user";
+
 
 const __createPlan__ = async (n: number) => {
     const name = `Test plan ${n}`;
@@ -28,7 +30,11 @@ const __createUser__ = async (n: number) => {
 describe("Signature retrive", () => {
     beforeEach(async () => {
         await Signature.destroy({ where: {} });
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
         await User.destroy({ where: {} });
 
         for (let i = 0; i < 2; i++) {
@@ -41,7 +47,11 @@ describe("Signature retrive", () => {
     });
 
     test('test get by user and retrive users and plans', async () => {
-        const plans = await Plan.findAll();
+        const plans = await Plan.findAll({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
         const users = await User.findAll();
 
         const creator1 = new SignatureCreator(users[0], plans[0]);
@@ -53,11 +63,23 @@ describe("Signature retrive", () => {
         const creator3 = new SignatureCreator(users[1], plans[0]);
         await creator3.create();
 
+        const freePlan = await Plan.findAll({ where: {
+            name: 'free'
+        }});
+
         const getter1 = new GetSignatureByUserPk(users[0].id);
-        const signatures1 = await getter1.get();
+        let signatures1 = await getter1.get();
+
+        expect(signatures1).toHaveLength(3);
+        
+        signatures1 = signatures1.filter(sig => sig.planId !== freePlan[0].id);
 
         const getter2 = new GetSignatureByUserPk(users[1].id);
-        const signatures2 = await getter2.get();
+        let signatures2 = await getter2.get();
+
+        expect(signatures2).toHaveLength(2);
+
+        signatures2 = signatures2.filter(sig => sig.planId !== freePlan[0].id);
 
         expect(signatures1).toHaveLength(2);
         expect(signatures2).toHaveLength(1);

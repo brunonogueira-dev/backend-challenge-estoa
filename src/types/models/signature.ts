@@ -14,7 +14,8 @@ export interface SignatureAttributes {
 export interface SignatureModel extends Model<SignatureAttributes>, SignatureAttributes {
     id: number,
     getPlans(): PlanModel[],
-    getUsers(): UserModel[]
+    getUsers(): UserModel[],
+    setPlans(ids: number[]): any;
 };
 
 export type SignatureStatic = typeof Model & {

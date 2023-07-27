@@ -1,5 +1,5 @@
-import { Filter } from "../../../src/controllers/user/filter";
-import User from "../../../src/models/user";
+import { Filter } from "../../../controllers/user/filter";
+import User from "../../../models/user";
 
 
 describe("User filter", () => {

@@ -1,5 +1,5 @@
-import { DeleteByPk } from "../../../src/controllers/user/delete";
-import User from "../../../src/models/user";
+import { DeleteByPk } from "../../../controllers/user/delete";
+import User from "../../../models/user";
 
 
 describe("User deletion", () => {

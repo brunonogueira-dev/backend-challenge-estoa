@@ -17,7 +17,7 @@ const Signature = <SignatureStatic>db.define("signature", {
     }
 }, {});
 
-User.belongsToMany(Plan, { through: Signature});
-Plan.belongsToMany(User, { through: Signature});
+User.belongsToMany(Plan, { through: { model: Signature, unique: false } });
+Plan.belongsToMany(User, { through: { model: Signature, unique: false } });
 
 export default Signature;

@@ -1,11 +1,12 @@
-import PlanCreator from "../../../src/controllers/plan/create";
-import SignatureCreator from "../../../src/controllers/signatures/create";
-import { GetSignatureByUserPk, GetUserSignaturePk } from "../../../src/controllers/signatures/get";
-import ChangeSignature from "../../../src/controllers/signatures/update";
-import UserCreator from "../../../src/controllers/user/create";
-import Plan from "../../../src/models/plan";
-import Signature from "../../../src/models/signature";
-import User from "../../../src/models/user";
+import { Op } from "sequelize";
+import PlanCreator from "../../../controllers/plan/create";
+import SignatureCreator from "../../../controllers/signatures/create";
+import ChangeSignature from "../../../controllers/signatures/update";
+import UserCreator from "../../../controllers/user/create";
+import Plan from "../../../models/plan";
+import Signature from "../../../models/signature";
+import User from "../../../models/user";
+
 
 const __createPlan__ = async (n: number) => {
     const name = `Test plan ${n}`;
@@ -29,7 +30,11 @@ const __createUser__ = async (n: number) => {
 describe("Signature change plan", () => {
     beforeEach(async () => {
         await Signature.destroy({ where: {} });
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                    [Op.not]: 'free'
+                }
+        }}); 
         await User.destroy({ where: {} });
 
         for (let i = 0; i < 2; i++) {
@@ -42,7 +47,11 @@ describe("Signature change plan", () => {
     });
 
     test("test plan changed", async () => {
-        const plans = await Plan.findAll();
+        const plans = await Plan.findAll({ where: {
+            name: {
+                    [Op.not]: 'free'
+                }
+        }});
         const users = await User.findAll();
 
         const creator = new SignatureCreator(users[0], plans[0]);
@@ -59,7 +68,11 @@ describe("Signature change plan", () => {
     }, 100000);
 
     test("test fail because cant find signature", async () => {
-        const plans = await Plan.findAll();
+        const plans = await Plan.findAll({ where: {
+            name: {
+                    [Op.not]: 'free'
+                }
+        }});
         const users = await User.findAll();
 
         const creator = new SignatureCreator(users[0], plans[0]);

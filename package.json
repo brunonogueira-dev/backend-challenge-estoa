@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "api": "npx tsc & node ./dist/server.js",
-    "test": "jest --coverage --detectOpenHandles"
+    "test": "jest --coverage --detectOpenHandles --silent"
   },
   "repository": {
     "type": "git",

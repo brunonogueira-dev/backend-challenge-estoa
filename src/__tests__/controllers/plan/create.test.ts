@@ -1,11 +1,15 @@
-import PlanCreator from "../../../src/controllers/plan/create";
-import Plan from "../../../src/models/plan";
-
+import { Op } from "sequelize";
+import PlanCreator from "../../../controllers/plan/create";
+import Plan from "../../../models/plan";
 
 
 describe("Plan creation", () => {
     beforeEach(async () => {
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
     });
 
     test('test ok plan is created inside the database', async () => {

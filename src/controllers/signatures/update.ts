@@ -14,9 +14,8 @@ export default class ChangeSignature {
     async change(): Promise<SignatureModel> {
         const signature = await Signature.findByPk(this.signatureId);
         if (signature) {
-            return await signature.update({
-                planId: this.plan.id
-            });
+            await signature.set({ planId: this.plan.id});
+            return await signature.save();
         } else {
             throw new Error("Signature not found");
         }

@@ -8,10 +8,10 @@ export class DeleteByPk {
     }
 
     async delete() {
-        const user = await Plan.findByPk(this.pk);
+        const plan = await Plan.findByPk(this.pk);
 
-        if(user) {
-            await user.destroy();
+        if(plan && plan.name !== 'free') {
+            await plan.destroy();
         } else {
             throw new Error("Plan not found");
         }

@@ -1,5 +1,5 @@
-import { GetterAll, GetterByPk } from "../../../src/controllers/user/get";
-import User from "../../../src/models/user";
+import { GetterAll, GetterByPk } from "../../../controllers/user/get";
+import User from "../../../models/user";
 
 
 describe("User retrive", () => {

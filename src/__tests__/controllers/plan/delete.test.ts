@@ -1,11 +1,15 @@
-import { DeleteByPk } from "../../../src/controllers/plan/delete";
-import Plan from "../../../src/models/plan";
-
+import { Op } from "sequelize";
+import { DeleteByPk } from "../../../controllers/plan/delete";
+import Plan from "../../../models/plan";
 
 
 describe("Plan deletion", () => {
     beforeEach(async () => {
-        await Plan.destroy({ where: {} });
+        await Plan.destroy({ where: {
+            name: {
+                [Op.not]: 'free'
+            }
+        }});
     });
 
     test('test delete ok', async () => {
@@ -23,7 +27,8 @@ describe("Plan deletion", () => {
     }, 100000);
 
     test('test delete fail because plan not found', async () => {
-        const deleter = new DeleteByPk(1);
+        const freePlan = await Plan.findOne({where: {name: 'free'}});
+        const deleter = new DeleteByPk(freePlan ? freePlan.id + 1 : 1);
         try {
             await deleter.delete();
             fail("Expected delete to fail, but it succeeded.");
