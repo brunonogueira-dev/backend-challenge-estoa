@@ -7,11 +7,24 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING(255),
     price: DataTypes.INTEGER,
-    expiry_period: DataTypes.INTEGER,
+    expiryPeriod: DataTypes.INTEGER,
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.NOW,
+      get() {
+        const date = this.getDataValue('createdAt');
+        if (date) {
+          return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        }
+        return null;
+      },
+    }, 
   },
     {
       tableName: 'plans',
-      timestamps: false,
+      timestamps: true,
+      updatedAt: false
     });
     
     Plan.associate = (models) => {

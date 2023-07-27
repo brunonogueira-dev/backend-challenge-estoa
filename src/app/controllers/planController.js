@@ -47,7 +47,7 @@ async function update(request, response) {
 
     const { name, price, expiryPeriod } = request.body;
 
-    const updatePlan = await UserService.update(id, name, price, expiryPeriod);
+    const updatePlan = await PlanService.update(id, name, price, expiryPeriod);
 
     return response.status(204).json({ updatePlan });
   } catch ({ message }) {
@@ -59,13 +59,10 @@ async function deletePlan(request, response) {
   try {
     const { id } = request.params; 
     
-    const plan = await PlanService.deletePlan(id);
-
-    if(!plan) {
-      return response.status(400).json({ error: 'Plano não encontrado' });
-    }
+    await PlanService.deletePlan(id);
 
     return response.json({ message: 'Plano deletado com sucesso' });
+
   } catch({ message }) { 
     return response.status(500).json({ message });
   }

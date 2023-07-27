@@ -8,11 +8,24 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING(255),
     email: DataTypes.STRING(255),
     password: DataTypes.STRING(255),
-    type_user: DataTypes.STRING(255),
+    typeUser: DataTypes.STRING(255),
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.NOW,
+      get() {
+        const date = this.getDataValue('createdAt');
+        if (date) {
+          return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+        }
+        return null;
+      },
+    },
   },
     {
       tableName: 'users',
-      timestamps: false,
+      timestamps: true,
+      updatedAt: false
     });
     
   User.associate = (models) => {

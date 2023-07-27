@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Signatures.associate = (models) => {
-    Signatures.belongsTo(models.Plans, {
+    Signatures.belongsTo(models.Plan, {
       foreignKey: "planId",
       as: "plans",
     });

@@ -29,12 +29,12 @@ async function findById(request, response) {
 async function create(request, response) {
   try {
     const {
-      body: { name, email, password },
+      body: { name, email, password, typeUser },
     } = request;
-    const object = {name, email, password }
+    const object = {name, email, password, typeUser }
     await UserService.create(object);
     return response.status(201).end();
-  } catch (error) {
+  } catch ({ message }) {
     return response.status(500).json({ message })
   }
 }
@@ -43,9 +43,9 @@ async function update(request, response) {
   try {
     const { id } = request.params;
 
-    const { name, email, password } = request.body;
+    const { name, email, password, typeUser } = request.body;
 
-    const updateUser = await UserService.update(id, name, email, password);
+    const updateUser = await UserService.update(id, name, email, password, typeUser);
 
     return response.status(204).json({ updateUser });
   } catch ({ message }) {
@@ -57,13 +57,10 @@ async function deleteUser(request, response) {
   try {
     const { id } = request.params; 
     
-    const user = await UserService.deleteUser(id);
+    await UserService.deleteUser(id);
 
-    if(!user) {
-      return response.status(400).json({ error: 'Usuario não encontrado' });
-    }
 
-    return response.json({ message: 'Usuario deletado com sucesso' });
+    return response.json({ message: 'Usuario Deletado com sucesso' });
   } catch({ message }) { 
     return response.status(500).json({ message });
   }

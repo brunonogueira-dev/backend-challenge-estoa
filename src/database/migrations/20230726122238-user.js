@@ -21,14 +21,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(255),
       },
-      type_user: {
+      typeUser: {
         allowNull: false,
         type: Sequelize.STRING(255),
       },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      }
+      createdAt: { 
+        allowNull: false, 
+        type: Sequelize.DATE, 
+       },
     });
   },
 
