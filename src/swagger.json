@@ -1,726 +1,741 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "Estoa Api",
-      "description": "Estoa Api"
-    },
-    "basePath": "/",
-    "schemes": ["http"],
-    "paths": {
-      "/users/": {
-        "get": {
-          "description": "Retorna todos os usuários",
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "users": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/User"
+  "swagger":"2.0",
+  "info":{
+     "version":"1.0.0",
+     "title":"Estoa Api",
+     "description":"Estoa Api"
+  },
+  "basePath":"/",
+  "schemes":[
+     "http"
+  ],
+  "paths":{
+     "/users/":{
+        "get":{
+           "description":"Retorna todos os usuários",
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "users":{
+                          "type":"array",
+                          "items":{
+                             "$ref":"#/definitions/User"
+                          }
+                       }
                     }
-                  }
-                }
+                 }
               }
-            }
-          }
+           }
         },
-        "post": {
-          "description": "Cria um usuario se o email for unico e adiciona um plano gratuito de 30 dias para ele",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "body",
-              "type": "string",
-              "description": "nome do usuário.",
-              "required": true
-            },
-            {
-              "name": "password",
-              "in": "body",
-              "type": "string",
-              "description": "tipo do usuário.",
-              "required": true
-            },
-            {
-              "name": "type",
-              "in": "body",
-              "type": "string",
-              "description": "senha do usuário.",
-              "required": true
-            },
-            {
-              "name": "email",
-              "in": "body",
-              "type": "string",
-              "description": "email do usuário.",
-              "required": true
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "user": {
-                    "$ref": "#/definitions/User"
-                  }
-                }
+        "post":{
+           "description":"Cria um usuario se o email for unico e adiciona um plano gratuito de 30 dias para ele",
+           "parameters":[
+              {
+                 "name":"name",
+                 "in":"body",
+                 "type":"string",
+                 "description":"nome do usuário.",
+                 "required":true
+              },
+              {
+                 "name":"password",
+                 "in":"body",
+                 "type":"string",
+                 "description":"tipo do usuário.",
+                 "required":true
+              },
+              {
+                 "name":"type",
+                 "in":"body",
+                 "type":"string",
+                 "description":"senha do usuário.",
+                 "required":true
+              },
+              {
+                 "name":"email",
+                 "in":"body",
+                 "type":"string",
+                 "description":"email do usuário.",
+                 "required":true
               }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          }
-        }
-      },
-      "/users/{id}": {
-        "get": {
-          "description": "Retorna o usuario correspondente ao id dado caso encontrado",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do usuário.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-              "200": {
-                "description": "Sucesso",
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": {
-                      "$ref": "#/definitions/User"
+           ],
+           "responses":{
+              "201":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "user":{
+                          "$ref":"#/definitions/User"
+                       }
                     }
-                  }
-                }
+                 }
               },
-              "404": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
-            }
-          }
-        },
-        "delete": {
-          "description": "Deleta o usuario correspondente ao id dado caso encontrado",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do usuário.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-              "201": {
-                "description": "Sucesso"
-              },
-              "404": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
-              },
-              "400": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-          }
-        },
-        "put": {
-          "description": "Edita informaçoes do usuario (se passar o email cerfique-se de que seja unico)",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do usuário.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "name",
-              "in": "body",
-              "type": "string",
-              "description": "nome do usuário.",
-              "required": false
-            },
-            {
-              "name": "password",
-              "in": "body",
-              "type": "string",
-              "description": "tipo do usuário.",
-              "required": false
-            },
-            {
-              "name": "type",
-              "in": "body",
-              "type": "string",
-              "description": "senha do usuário.",
-              "required": false
-            },
-            {
-              "name": "email",
-              "in": "body",
-              "type": "string",
-              "description": "email do usuário.",
-              "required": false
-            }
-          ],
-          "responses": {
-              "200": {
-                "description": "Sucesso",
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": {
-                      "$ref": "#/definitions/User"
+           }
+        }
+     },
+     "/users/{id}":{
+        "get":{
+           "description":"Retorna o usuario correspondente ao id dado caso encontrado",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID do usuário.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "user":{
+                          "$ref":"#/definitions/User"
+                       }
                     }
-                  }
-                }
+                 }
               },
-              "404": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
-              },
-              "400": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-          }
-        }
-      },
-      "/search/q?": {
-        "get": {
-          "description": "Realiza uma busca de usuários com base nos filtros fornecidos.",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "query",
-              "description": "Filtro pelo nome do usuário.",
-              "required": false,
-              "type": "string"
-            },
-            {
-              "name": "created_at",
-              "in": "query",
-              "description": "Filtro pela data de criação do usuário. (pode ser passado um parametro de tempo para a pesquisa: [eq, gt, gte, lt, lte])",
-              "required": false,
-              "type": "string",
-              "format": "date"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "users": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/User"
+           }
+        },
+        "delete":{
+           "description":"Deleta o usuario correspondente ao id dado caso encontrado",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID do usuário.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              }
+           ],
+           "responses":{
+              "201":{
+                 "description":"Sucesso"
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              }
+           }
+        },
+        "put":{
+           "description":"Edita informaçoes do usuario (se passar o email cerfique-se de que seja unico)",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID do usuário.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              },
+              {
+                 "name":"name",
+                 "in":"body",
+                 "type":"string",
+                 "description":"nome do usuário.",
+                 "required":false
+              },
+              {
+                 "name":"password",
+                 "in":"body",
+                 "type":"string",
+                 "description":"tipo do usuário.",
+                 "required":false
+              },
+              {
+                 "name":"type",
+                 "in":"body",
+                 "type":"string",
+                 "description":"senha do usuário.",
+                 "required":false
+              },
+              {
+                 "name":"email",
+                 "in":"body",
+                 "type":"string",
+                 "description":"email do usuário.",
+                 "required":false
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "user":{
+                          "$ref":"#/definitions/User"
+                       }
                     }
-                  }
-                }
+                 }
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          }
+           }
         }
-      },
-      "/plans/": {
-        "get": {
-          "description": "Retorna todos os planos",
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "plans": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/Plan"
+     },
+     "/search/q?":{
+        "get":{
+           "description":"Realiza uma busca de usuários com base nos filtros fornecidos.",
+           "parameters":[
+              {
+                 "name":"name",
+                 "in":"query",
+                 "description":"Filtro pelo nome do usuário.",
+                 "required":false,
+                 "type":"string"
+              },
+              {
+                 "name":"created_at",
+                 "in":"query",
+                 "description":"Filtro pela data de criação do usuário. (pode ser passado um parametro de tempo para a pesquisa: [eq, gt, gte, lt, lte])",
+                 "required":false,
+                 "type":"string",
+                 "format":"date"
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "users":{
+                          "type":"array",
+                          "items":{
+                             "$ref":"#/definitions/User"
+                          }
+                       }
                     }
-                  }
-                }
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-            }
-          }
-        },
-        "post": {
-          "description": "Cria um plano",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Objeto do corpo da requisição",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PlanPost"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "plan": {
-                    "$ref": "#/definitions/Plan"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          }
+           }
         }
-      },
-      "/plans/{id}": {
-        "get": {
-          "description": "Retorna o plano correspondente ao id dado caso encontrado",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do plano.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-              "200": {
-                "description": "Sucesso",
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "plan": {
-                      "$ref": "#/definitions/Plan"
+     },
+     "/plans/":{
+        "get":{
+           "description":"Retorna todos os planos",
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "plans":{
+                          "type":"array",
+                          "items":{
+                             "$ref":"#/definitions/Plan"
+                          }
+                       }
                     }
-                  }
-                }
-              },
-              "404": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
-            }
-          }
-        },
-        "delete": {
-          "description": "Deleta o plano correspondente ao id dado caso encontrado",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do plano.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-              "201": {
-                "description": "Sucesso"
-              },
-              "404": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
-              },
-              "400": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
+                 }
               }
-          }
+           }
         },
-        "put": {
-          "description": "Edita informaçoes do plano",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID do plano.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Objeto do corpo da requisição",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/PlanPost"
+        "post":{
+           "description":"Cria um plano",
+           "parameters":[
+              {
+                 "name":"body",
+                 "in":"body",
+                 "description":"Objeto do corpo da requisição",
+                 "required":true,
+                 "schema":{
+                    "$ref":"#/definitions/PlanPost"
+                 }
               }
-            }
-          ],
-          "responses": {
-              "200": {
-                "description": "Sucesso",
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": {
-                      "$ref": "#/definitions/Plan"
+           ],
+           "responses":{
+              "201":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "plan":{
+                          "$ref":"#/definitions/Plan"
+                       }
                     }
-                  }
-                }
+                 }
               },
-              "404": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
-              },
-              "400": {
-                "description": "Erro de requisição",
-                "schema": {
-                  "$ref": "#/definitions/Error"
-                }
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-          }
+           }
         }
-      },
-      "/signatures/": {
-        "post": {
-          "description": "Cria uma assinatura",
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Objeto do corpo da requisição",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/SignaturePost"
+     },
+     "/plans/{id}":{
+        "get":{
+           "description":"Retorna o plano correspondente ao id dado caso encontrado",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID do plano.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
               }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "signature": {
-                    "$ref": "#/definitions/Signature"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          }
-        }
-      },
-      "/signatures/{id}": {
-        "put": {
-          "description": "Muda o plano de uma assinatura",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID da assinatura.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Objeto do corpo da requisição",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/SignatureUpdate"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "signature": {
-                    "$ref": "#/definitions/Signature"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            },
-            "404": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          }
-        }
-      },
-      "/signatures/get-user/{id}": {
-        "put": {
-          "description": "Pega o user de uma assinatura",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID da user.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "user": {
-                    "$ref": "#/definitions/User"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            },
-            "404": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
-              }
-            }
-          }
-        }
-      },
-      "/signatures/get-by-user/{id}": {
-        "put": {
-          "description": "Pega as assinaturas de um usuario",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID da assinatura.",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Sucesso",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "signatures": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/definitions/Signature"
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "plan":{
+                          "$ref":"#/definitions/Plan"
+                       }
                     }
-                  }
-                }
+                 }
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-            },
-            "400": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
+           }
+        },
+        "delete":{
+           "description":"Deleta o plano correspondente ao id dado caso encontrado",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID do plano.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
               }
-            },
-            "404": {
-              "description": "Erro de requisição",
-              "schema": {
-                "$ref": "#/definitions/Error"
+           ],
+           "responses":{
+              "201":{
+                 "description":"Sucesso"
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
               }
-            }
-          }
-        }
-      }
-    },
-    "definitions": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Id do usuário."
-          },
-          "email": {
-            "type": "string",
-            "description": "email do usuário."
-          },
-          "name": {
-            "type": "string",
-            "description": "nome do usuário."
-          },
-          "password": {
-            "type": "string",
-            "description": "senha do usuário."
-          },
-          "type": {
-            "type": "string",
-            "description": "tipo do usuário."
-          }
-        }
-      },
-      "Plan": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Id do plano."
-          },
-          "name": {
-            "type": "string",
-            "description": "nome do plano."
-          },
-          "price": {
-            "type": "integer",
-            "description": "preço do plano",
-            "format": "int64"
-          },
-          "expiration": {
-            "type": "integer",
-            "description": "data de expiração do plano",
-            "format": "int64"
-          }
-        }
-      },
-      "PlanPost": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "expiration": {
-            "type": "integer",
-            "format": "int64"
-          }
+           }
         },
-        "required": ["name", "price", "expiration"]
-      },
-      "PlanUpdate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "price": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "expiration": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "required": ["name", "price", "expiration"]
-      },
-      "Signature": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string"
-          },
-          "planId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "expiration": {
-            "type": "string",
-            "format": "date"
-          }
+        "put":{
+           "description":"Edita informaçoes do plano",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID do plano.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              },
+              {
+                 "name":"body",
+                 "in":"body",
+                 "description":"Objeto do corpo da requisição",
+                 "required":true,
+                 "schema":{
+                    "$ref":"#/definitions/PlanPost"
+                 }
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "user":{
+                          "$ref":"#/definitions/Plan"
+                       }
+                    }
+                 }
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              }
+           }
         }
-      },
-      "SignaturePost": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "planId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "required": ["userId", "planId"]
-      },
-      "SignatureUpdate": {
-        "type": "object",
-        "properties": {
-          "planId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "required": ["userId", "planId"]
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
+     },
+     "/signatures/":{
+        "post":{
+           "description":"Cria uma assinatura",
+           "parameters":[
+              {
+                 "name":"body",
+                 "in":"body",
+                 "description":"Objeto do corpo da requisição",
+                 "required":true,
+                 "schema":{
+                    "$ref":"#/definitions/SignaturePost"
+                 }
+              }
+           ],
+           "responses":{
+              "201":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "signature":{
+                          "$ref":"#/definitions/Signature"
+                       }
+                    }
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              }
+           }
         }
-      }
-    }
+     },
+     "/signatures/{id}":{
+        "put":{
+           "description":"Muda o plano de uma assinatura",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID da assinatura.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              },
+              {
+                 "name":"body",
+                 "in":"body",
+                 "description":"Objeto do corpo da requisição",
+                 "required":true,
+                 "schema":{
+                    "$ref":"#/definitions/SignatureUpdate"
+                 }
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "signature":{
+                          "$ref":"#/definitions/Signature"
+                       }
+                    }
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              }
+           }
+        }
+     },
+     "/signatures/get-user/{id}":{
+        "put":{
+           "description":"Pega o user de uma assinatura",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID da user.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "user":{
+                          "$ref":"#/definitions/User"
+                       }
+                    }
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              }
+           }
+        }
+     },
+     "/signatures/get-by-user/{id}":{
+        "put":{
+           "description":"Pega as assinaturas de um usuario",
+           "parameters":[
+              {
+                 "name":"id",
+                 "in":"path",
+                 "description":"ID da assinatura.",
+                 "required":true,
+                 "type":"integer",
+                 "format":"int64"
+              }
+           ],
+           "responses":{
+              "200":{
+                 "description":"Sucesso",
+                 "schema":{
+                    "type":"object",
+                    "properties":{
+                       "signatures":{
+                          "type":"array",
+                          "items":{
+                             "$ref":"#/definitions/Signature"
+                          }
+                       }
+                    }
+                 }
+              },
+              "400":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              },
+              "404":{
+                 "description":"Erro de requisição",
+                 "schema":{
+                    "$ref":"#/definitions/Error"
+                 }
+              }
+           }
+        }
+     }
+  },
+  "definitions":{
+     "User":{
+        "type":"object",
+        "properties":{
+           "id":{
+              "type":"integer",
+              "format":"int64",
+              "description":"Id do usuário."
+           },
+           "email":{
+              "type":"string",
+              "description":"email do usuário."
+           },
+           "name":{
+              "type":"string",
+              "description":"nome do usuário."
+           },
+           "password":{
+              "type":"string",
+              "description":"senha do usuário."
+           },
+           "type":{
+              "type":"string",
+              "description":"tipo do usuário."
+           }
+        }
+     },
+     "Plan":{
+        "type":"object",
+        "properties":{
+           "id":{
+              "type":"integer",
+              "format":"int64",
+              "description":"Id do plano."
+           },
+           "name":{
+              "type":"string",
+              "description":"nome do plano."
+           },
+           "price":{
+              "type":"integer",
+              "description":"preço do plano",
+              "format":"int64"
+           },
+           "expiration":{
+              "type":"integer",
+              "description":"data de expiração do plano",
+              "format":"int64"
+           }
+        }
+     },
+     "PlanPost":{
+        "type":"object",
+        "properties":{
+           "name":{
+              "type":"string"
+           },
+           "price":{
+              "type":"integer",
+              "format":"int64"
+           },
+           "expiration":{
+              "type":"integer",
+              "format":"int64"
+           }
+        },
+        "required":[
+           "name",
+           "price",
+           "expiration"
+        ]
+     },
+     "PlanUpdate":{
+        "type":"object",
+        "properties":{
+           "name":{
+              "type":"string"
+           },
+           "price":{
+              "type":"integer",
+              "format":"int64"
+           },
+           "expiration":{
+              "type":"integer",
+              "format":"int64"
+           }
+        },
+        "required":[
+           "name",
+           "price",
+           "expiration"
+        ]
+     },
+     "Signature":{
+        "type":"object",
+        "properties":{
+           "userId":{
+              "type":"string"
+           },
+           "planId":{
+              "type":"integer",
+              "format":"int64"
+           },
+           "expiration":{
+              "type":"string",
+              "format":"date"
+           }
+        }
+     },
+     "SignaturePost":{
+        "type":"object",
+        "properties":{
+           "userId":{
+              "type":"integer",
+              "format":"int64"
+           },
+           "planId":{
+              "type":"integer",
+              "format":"int64"
+           }
+        },
+        "required":[
+           "userId",
+           "planId"
+        ]
+     },
+     "SignatureUpdate":{
+        "type":"object",
+        "properties":{
+           "planId":{
+              "type":"integer",
+              "format":"int64"
+           }
+        },
+        "required":[
+           "userId",
+           "planId"
+        ]
+     },
+     "Error":{
+        "type":"object",
+        "properties":{
+           "message":{
+              "type":"string"
+           }
+        }
+     }
   }
-  
+}
