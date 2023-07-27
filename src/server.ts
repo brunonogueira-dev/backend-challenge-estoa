@@ -10,6 +10,9 @@ import userRouter from './routes/userRoutes';
 import planRouter from './routes/planRoutes';
 import signatureRouter from './routes/signatureRoutes';
 
+import swaggerUi from 'swagger-ui-express';
+import * as swaggerDocument from './swagger.json';
+
 export const app = express();
 
 app.use(express.json())
@@ -20,6 +23,8 @@ app.use(cors())
 app.use('/users', userRouter);
 app.use('/plans', planRouter);
 app.use('/signatures', signatureRouter);
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const createFreePlan = async () => {
   const planExists = await Plan.findOne({where: {name: 'free'}});
