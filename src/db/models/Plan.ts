@@ -1,25 +1,20 @@
-import { DataTypes, Model } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sequelizeConnection from "../config";
 
 interface PlanAttributes {
     id: number;
     name: string;
     price: number;
-    expires_in: number;
-    created_at?: Date;
+    expiresIn: number;
+    createdAt: Date;
 }
 
-export interface PlanInput extends Partial<PlanAttributes> {}
-export interface PlanOutput extends Omit<PlanAttributes, "created_at"> {}
-
-class Plan extends Model<PlanAttributes, PlanInput> implements PlanAttributes {
+class Plan extends Model<PlanAttributes> implements PlanAttributes {
     public id!: number;
     public name!: string;
     public price!: number;
-    public expires_in!: number;
-    public type!: string;
-
-    public readonly created_at!: Date;
+    public expiresIn!: number;
+    public createdAt!: Date;
 }
 
 Plan.init(
@@ -27,6 +22,7 @@ Plan.init(
         id: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
+            allowNull: false,
             primaryKey: true,
         },
         name: {
@@ -37,18 +33,21 @@ Plan.init(
             type: DataTypes.NUMBER,
             allowNull: false,
         },
-        expires_in: {
+        expiresIn: {
             type: DataTypes.NUMBER,
             allowNull: false,
         },
-        created_at: {
+        createdAt: {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
         },
     },
     {
-        timestamps: true,
         sequelize: sequelizeConnection,
+        timestamps: true,
+        freezeTableName: true,
+        underscored: true,
+        updatedAt: false,
     }
 );
 

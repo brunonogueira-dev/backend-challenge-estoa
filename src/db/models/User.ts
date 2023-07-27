@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize";
+import { Model, Optional, DataTypes } from "sequelize";
 import sequelizeConnection from "../config";
 
 interface UserAttributes {
@@ -6,21 +6,23 @@ interface UserAttributes {
     name: string;
     email: string;
     password: string;
-    type: string;
-    created_at?: Date;
+    type?: string;
+    createdAt: Date;
 }
 
-export interface UserInput extends Partial<UserAttributes> {}
-export interface UserOutput extends Omit<UserAttributes, "created_at"> {}
+interface UserCreationAttributes
+    extends Optional<UserAttributes, "id" | "type" | "createdAt"> {}
 
-class User extends Model<UserAttributes, UserInput> implements UserAttributes {
+class User
+    extends Model<UserAttributes, UserCreationAttributes>
+    implements UserAttributes
+{
     public id!: number;
     public name!: string;
     public email!: string;
     public password!: string;
-    public type!: string;
-
-    public readonly created_at!: Date;
+    public type?: string;
+    public createdAt!: Date;
 }
 
 User.init(
@@ -28,6 +30,7 @@ User.init(
         id: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
+            allowNull: false,
             primaryKey: true,
         },
         name: {
@@ -47,14 +50,17 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        created_at: {
+        createdAt: {
             type: DataTypes.DATE,
-            allowNull: true,
+            allowNull: false,
         },
     },
     {
-        timestamps: true,
         sequelize: sequelizeConnection,
+        timestamps: true,
+        freezeTableName: true,
+        underscored: true,
+        updatedAt: false,
         defaultScope: {
             attributes: { exclude: ["password"] },
         },
