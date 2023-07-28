@@ -44,7 +44,7 @@ export default class PlanController {
         }
         const input: IPlanInput = req.body;
         const id: string = await this.planService.createPlan(input);
-        res.json({ id });
+        res.status(201).json({ id });
     };
 
     public updatePlan = async (

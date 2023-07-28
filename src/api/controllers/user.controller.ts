@@ -81,7 +81,7 @@ export default class UserController {
         const input: IUserInput = req.body;
         try {
             const id: string = await this.userService.createUser(input);
-            res.json({ id });
+            res.status(201).json({ id });
         } catch (error) {
             next(error);
         }
