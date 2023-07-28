@@ -18,11 +18,12 @@ export default class UserService {
     }
 
     public async findUserByDate(date: string): Promise<IUser[]> {
-        const targetDate = new Date(date);
         const users = await this.listAllUsers();
-        return users.filter(
-            (user) => user.createdAt.getTime() === targetDate.getTime()
-        );
+        return users.filter((user) => {
+            const targetDate = new Date(date);
+            const createdAt = new Date(user.createdAt);
+            return createdAt.getTime() === targetDate.getTime();
+        });
     }
 
     public async createUser(input: IUserInput): Promise<string> {
@@ -60,12 +61,15 @@ export default class UserService {
         input: IUserInput
     ): Promise<string | null> {
         const updatedUser = await User.update({ ...input }, { where: { id } });
-        const userPlan: IPlan | null = await Plan.findOne({
-            where: { name: input.planType },
-        });
 
-        if (userPlan) {
-            await this.updateSubscription(id, userPlan);
+        if (input.planType) {
+            const userPlan: IPlan | null = await Plan.findOne({
+                where: { name: input.planType },
+            });
+
+            if (userPlan) {
+                await this.updateSubscription(id, userPlan);
+            }
         }
 
         if (updatedUser[0] === 1) {
@@ -84,15 +88,19 @@ export default class UserService {
             await Subscription.update(
                 {
                     planId: plan.id,
-                    expirationDate: new Date(
-                        subscription.expirationDate.setMonth(
-                            subscription.expirationDate.getMonth() +
-                                plan.expiresIn
-                        )
+                    expirationDate: this.daysAfter(
+                        subscription.expirationDate,
+                        plan.expiresIn
                     ),
                 },
                 { where: { userId: id } }
             );
         }
+    }
+
+    private daysAfter(date: Date, months: number) {
+        var dateFromString = new Date(date);
+        dateFromString.setMonth(dateFromString.getMonth() + months);
+        return dateFromString;
     }
 }
