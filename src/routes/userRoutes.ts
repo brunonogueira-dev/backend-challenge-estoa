@@ -24,9 +24,7 @@ userRouter.get("/:id", async(req: Request, res: Response) => {
         const user = await userGetter.get();
     
         if (user) {
-            const userJson = await user.toJSON();
-
-            const data = { user: userJson };
+            const data = { user: user };
             return res.send(data);
         } else {
             return res.status(404).send({ message: "User not found" });
@@ -47,7 +45,6 @@ userRouter.get("/search/q", async(req: Request, res: Response) => {
 
     try {
         const users = await userFilter.filter(options);
-
         const data = { users: users };
         return res.send(data);
     } catch (e: any) {
@@ -65,9 +62,7 @@ userRouter.post("/", async(req: Request, res: Response) => {
     const user = await creator.create();
 
     if (user) {
-        const userJson = await user.toJSON();
-
-        const data = { user: userJson };
+        const data = { user: user };
         return res.status(202).send(data);
     } else {
         return res.status(400).send({ message: "cant create user" });
@@ -111,8 +106,7 @@ userRouter.put("/:id", async(req: Request, res: Response) => {
         
         try {
             const user = await userUpdatter.update(options);
-            const userJson = await user.toJSON();
-            const data = { user: userJson };
+            const data = { user: user };
             return res.status(200).send(data);
         } catch (e: any) {
             return res.status(e.status || 400).send({ message: e.message });

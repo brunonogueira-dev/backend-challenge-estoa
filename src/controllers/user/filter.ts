@@ -1,14 +1,14 @@
-import { Op } from "sequelize";
-import User from "../../models/user";
+import { Op, WhereOptions } from "sequelize";
 import { IUserModel } from "../../types/models/user";
 import { IFiltereOptions, TValidOperators } from "../../types/controllers/user";
+import { getAllUsers } from "../../db/userDbHandlers";
 
 
 export class Filter {
     constructor() {}
 
     async filter(options: IFiltereOptions): Promise<IUserModel[]> {
-        const whereQuery: any = {};
+        const whereQuery: WhereOptions = {};
 
         if (options.name) {
             whereQuery.name = options.name;
@@ -27,8 +27,6 @@ export class Filter {
             }
         }
 
-        return await User.findAll({
-            where: whereQuery
-        });
+        return await getAllUsers(whereQuery);
     }
 }

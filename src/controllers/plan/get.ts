@@ -1,4 +1,4 @@
-import Plan from "../../models/plan";
+import { getAllPlans, getPlanByPK } from "../../db/planDbHandler";
 import { IPlanModel } from "../../types/models/plan";
 
 
@@ -10,7 +10,7 @@ export class GetterByPk {
     }
 
     async get(): Promise<IPlanModel | null> {
-        return await Plan.findByPk(this.pk);
+        return await getPlanByPK(this.pk);
     }
 }
 
@@ -18,6 +18,6 @@ export class GetterAll {
     constructor() {}
 
     async get(): Promise<IPlanModel[]> {
-        return await Plan.findAll();
+        return await getAllPlans();
     }
 }

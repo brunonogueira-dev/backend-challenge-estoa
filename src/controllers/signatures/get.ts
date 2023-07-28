@@ -1,5 +1,5 @@
-import Signature from "../../models/signature";
-import User from "../../models/user";
+import { getByPK, getByUserPk } from "../../db/signatureDbHandler";
+import { getUserByPK } from "../../db/userDbHandlers";
 import { ISignatureModel } from "../../types/models/signature";
 import { IUserModel } from "../../types/models/user";
 
@@ -11,11 +11,7 @@ export class GetSignatureByUserPk {
     };
 
     async get(): Promise<ISignatureModel[]> {
-        return await Signature.findAll({
-            where: {
-                userId: this.userId
-            }
-        });
+        return await getByUserPk(this.userId);
     }
 }
 
@@ -27,10 +23,10 @@ export class GetUserSignaturePk {
     };
 
     async get(): Promise<IUserModel | null> {
-        const signature = await Signature.findByPk(this.pk);
+        const signature = await getByPK(this.pk);
         
         if (signature) {
-            return await User.findByPk(signature.userId);
+            return await getUserByPK(signature.userId);
         } else {
             return null;
         }

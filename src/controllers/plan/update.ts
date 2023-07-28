@@ -1,4 +1,4 @@
-import Plan from "../../models/plan";
+import { getPlanByPK, updatePlan } from "../../db/planDbHandler";
 import { IUpdateOptions } from "../../types/controllers/plan";
 
 
@@ -10,14 +10,10 @@ export class UpdateByPk {
     }
 
     async update(options: IUpdateOptions) {
-        const plan = await Plan.findByPk(this.pk);
+        const plan = await getPlanByPK(this.pk);
 
         if (plan) {
-            await plan.update({
-                name: options.name || plan.name,
-                price: options.price || plan.price,
-                expiration: options.expiration || plan.expiration
-            });
+            await updatePlan(plan, options);
             return plan;
         } else {
             const error: any = new Error("Plan not found");

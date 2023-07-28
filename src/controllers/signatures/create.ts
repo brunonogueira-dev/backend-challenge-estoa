@@ -1,32 +1,36 @@
-import Signature from "../../models/signature";
-import { IPlanModel } from "../../types/models/plan";
+import { getPlanByPK } from "../../db/planDbHandler";
+import { createSignature } from "../../db/signatureDbHandler";
+import { getUserByPK } from "../../db/userDbHandlers";
 import { ISignatureModel } from "../../types/models/signature";
-import { IUserModel } from "../../types/models/user";
 
 
 export default class SignatureCreator {
-    private user: IUserModel;
-    private plan: IPlanModel;
+    private userPK: number;
+    private planPK: number;
 
-    constructor(user: IUserModel, plan: IPlanModel) {
-        this.user = user;
-        this.plan = plan;
+    constructor(userPK: number, planPK: number) {
+        this.userPK = userPK;
+        this.planPK = planPK;
     }
 
     async create(): Promise<ISignatureModel | null> {
+        const plan = await getPlanByPK(this.planPK);
+        const user = await getUserByPK(this.userPK);
+
+        if (!user || !plan) return null;
+
         const expireAtValue = new Date();
 
-        const planExpirationInDays = this.plan.expiration * 30;
+        const planExpirationInDays = plan.expiration * 30;
         expireAtValue.setDate(expireAtValue.getDate() + planExpirationInDays);
 
         try {
-            const newSignature = await Signature.create({
+            const atributes = {
                 expiration: expireAtValue,
-                userId: this.user.id,
-                planId: this.plan.id
-            });
-            newSignature.reload();
-            return newSignature;
+                userId: user.id,
+                planId: plan.id
+            };
+            return await createSignature(atributes);
         } catch (e) {
             console.log(e);
             return null;

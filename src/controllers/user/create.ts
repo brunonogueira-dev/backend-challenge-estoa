@@ -1,8 +1,23 @@
-import Plan from "../../models/plan";
-import User from "../../models/user";
+import { getFreePlan } from "../../db/planDbHandler";
+import { createUser } from "../../db/userDbHandlers";
 import { IUserAttributes, IUserModel } from "../../types/models/user";
 import SignatureCreator from "../signatures/create";
 
+async function reverseCreation(user: IUserModel, error: string) {
+    await user.destroy();
+    throw new Error(error);
+}
+
+async function addFreePlan(user: IUserModel) {
+    const freePlan = await getFreePlan();
+
+    if (!freePlan) return await reverseCreation(user, "failed while trying to create free plan for the user");
+
+    const sigCreator = new SignatureCreator(user.id, freePlan.id);
+    const sig = await sigCreator.create();
+
+    if (!sig) return await reverseCreation(user, "failed while trying to create free plan for the user");
+}
 
 export default class UserCreator {
     private email: string;
@@ -17,33 +32,24 @@ export default class UserCreator {
         this.type = type;
     }
 
-    async reverseCreation(user: IUserModel): Promise<null> {
-        await user.destroy();
-        return null;
-    }
-
     async create(): Promise<IUserModel | null> {
         try {
-            const IUserAttributes: IUserAttributes = {
+            const atributes: IUserAttributes = {
                 name: this.name,
                 email: this.email,
                 password: this.password,
                 type: this.type
             };
-            const user = await User.create(IUserAttributes);
-
+            const user = await createUser(atributes);
+            
             if (!user) return null;
 
-            const freePlan = await Plan.findOne({ where: { name: "free" } });
-
-            if (!freePlan) return await this.reverseCreation(user);
-
-            const sigCreator = new SignatureCreator(user, freePlan);
-            const sig = await sigCreator.create();
-
-            if (!sig) return await this.reverseCreation(user);
+            try {
+                await addFreePlan(user);
+            } catch (_) {
+                return null;
+            } 
             
-            await user.reload();
             return user;
         } catch (e) {
             console.log("Failed while trying to create the user");

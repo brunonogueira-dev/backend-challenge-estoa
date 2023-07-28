@@ -1,4 +1,4 @@
-import Signature from "../../models/signature";
+import { changePlan, getByPK } from "../../db/signatureDbHandler";
 import { IPlanModel } from "../../types/models/plan";
 import { ISignatureModel } from "../../types/models/signature";
 
@@ -12,10 +12,9 @@ export default class ChangeSignature {
     };
 
     async change(): Promise<ISignatureModel> {
-        const signature = await Signature.findByPk(this.signatureId);
+        const signature = await getByPK(this.signatureId);
         if (signature) {
-            await signature.set({ planId: this.plan.id });
-            return await signature.save();
+            return await changePlan(signature, this.plan.id);
         } else {
             throw new Error("Signature not found");
         }

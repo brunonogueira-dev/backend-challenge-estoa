@@ -1,4 +1,4 @@
-import User from "../../models/user";
+import { getUserByPK } from "../../db/userDbHandlers";
 
 export class DeleteByPk {
     private pk: number;
@@ -8,7 +8,7 @@ export class DeleteByPk {
     }
 
     async delete() {
-        const user = await User.findByPk(this.pk);
+        const user = await getUserByPK(this.pk);
 
         if (user) {
             await user.destroy();

@@ -1,4 +1,4 @@
-import User from "../../models/user";
+import { getAllUsers, getUserByPK } from "../../db/userDbHandlers";
 import { IUserModel } from "../../types/models/user";
 
 
@@ -10,7 +10,7 @@ export class GetterByPk {
     }
 
     async get(): Promise<IUserModel | null> {
-        return await User.findByPk(this.pk);
+        return await getUserByPK(this.pk);
     }
 }
 
@@ -18,6 +18,6 @@ export class GetterAll {
     constructor() {}
 
     async get(): Promise<IUserModel[]> {
-        return await User.findAll();
+        return await getAllUsers();
     }
 }

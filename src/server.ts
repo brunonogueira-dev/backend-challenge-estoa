@@ -7,11 +7,12 @@ import Plan from "./models/plan";
 import Signature from "./models/signature";
 import User from "./models/user";
 import userRouter from "./routes/userRoutes";
-import planRouter from "./routes/planRoutes";
 import signatureRouter from "./routes/signatureRoutes";
 
 import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "./swagger.json";
+import planRouter from "./routes/planRoutes";
+import { createFreePlan } from "./db/planDbHandler";
 
 export const app = express();
 
@@ -25,17 +26,6 @@ app.use("/plans", planRouter);
 app.use("/signatures", signatureRouter);
 
 app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-const createFreePlan = async() => {
-    const planExists = await Plan.findOne({ where: { name: "free" } });
-    if (!planExists) {
-        await Plan.create({
-            name: "free",
-            price: 0,
-            expiration: 1
-        });
-    }
-};
 
 const syncDb = async() => {
     await db.authenticate().then(async() => {

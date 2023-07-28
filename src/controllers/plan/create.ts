@@ -1,4 +1,4 @@
-import Plan from "../../models/plan";
+import { createPlan } from "../../db/planDbHandler";
 import { IPlanAttributes, IPlanModel } from "../../types/models/plan";
 
 export default class PlanCreator {
@@ -14,13 +14,12 @@ export default class PlanCreator {
 
     async create(): Promise<IPlanModel | null> {
         try {
-            const IPlanAttributes: IPlanAttributes = {
+            const atributes: IPlanAttributes = {
                 name: this.name,
                 expiration: this.expiration,
                 price: this.price,
             };
-            const plan = await Plan.create(IPlanAttributes);
-            await plan.reload();
+            const plan = await createPlan(atributes);
             return plan;
         } catch (e) {
             console.log("Failed while trying to create the plan");
