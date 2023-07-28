@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createUserValidationMiddleware } from "../middlewares/user.middleware";
+import { errorHandler } from "../middlewares/errors.middleware";
 import UserController from "../controllers/user.controller";
 
 const userRouter: Router = Router();
@@ -12,6 +13,7 @@ userRouter.get("/users/date/:date", userController.findUserByDate);
 userRouter.post(
     "/users",
     createUserValidationMiddleware,
+    errorHandler,
     userController.createUser
 );
 userRouter.delete("/users/:id", userController.deleteUser);

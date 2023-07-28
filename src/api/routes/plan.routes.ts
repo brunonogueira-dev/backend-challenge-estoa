@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createPlanValidationMiddleware } from "../middlewares/plan.middleware";
+import { errorHandler } from "../middlewares/errors.middleware";
 import PlanController from "../controllers/plan.controller";
 
 const planRouter: Router = Router();
@@ -10,6 +11,7 @@ planRouter.get("/plans/:id", planController.findPlanById);
 planRouter.post(
     "/plans",
     createPlanValidationMiddleware,
+    errorHandler,
     planController.createPlan
 );
 planRouter.delete("/plans/:id", planController.deletePlan);
