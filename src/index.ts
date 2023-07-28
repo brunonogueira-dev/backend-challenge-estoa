@@ -4,8 +4,6 @@ import { errorHandler } from "./api/middlewares/errors.middleware";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json";
 
-require("dotenv").config();
-
 const port = Number(process.env.PORT) || 3000;
 
 const app = express();
