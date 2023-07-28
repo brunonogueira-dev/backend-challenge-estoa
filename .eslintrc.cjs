@@ -1,0 +1,25 @@
+module.exports = {
+    root: true,
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint'],
+    extends: [
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended',
+      'prettier',
+    ],
+    rules: {
+        'indent': ['error', 4],
+        'semi': ['error', 'always'],
+        'quotes': ['error', 'double'],
+        'space-infix-ops': 'error',
+        'keyword-spacing': 'error',
+        'space-before-blocks': 'error',
+        'space-before-function-paren': ['error', 'never'],
+        'max-len': ['error', { 'code': 120, 'tabWidth': 4 }],
+        'object-curly-spacing': ['error', 'always'],
+        'func-call-spacing': 'error',
+        'no-mixed-spaces-and-tabs': 'error',
+        'eqeqeq': 'error',
+        '@typescript-eslint/no-explicit-any': 'off',
+    },
+};
