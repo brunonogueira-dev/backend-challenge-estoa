@@ -1,7 +1,7 @@
 export interface ISubscription {
-    id: number;
-    userId: number;
-    planId: number;
+    id: string;
+    userId: string;
+    planId: string;
     expirationDate: Date;
     createdAt: Date;
 }

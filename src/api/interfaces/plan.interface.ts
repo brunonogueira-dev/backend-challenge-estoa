@@ -1,5 +1,5 @@
 export interface IPlan {
-    id: number;
+    id: string;
     name: string;
     price: number;
     expiresIn: number;
