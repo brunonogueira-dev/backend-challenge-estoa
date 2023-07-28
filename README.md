@@ -1,42 +1,27 @@
 # Desafio Backend da Estoa
 
-Esse repositório é o nosso desafio para avaliar o quão bom desenvolvedor Backend você é.
+Esta é minha implementação do Desafio Backend da Estoa.
 
-Provavelmente você já está participando do nosso processo de contratação, mas se você caiu aqui por acaso, leia o documento até o final e caso haja interesse, você pode começar daqui mesmo.
+## Configuração do ambiente Docker
 
+Primeiro, deve-se clonar o projeto usando o comando `git clone`.
 
-## Sobre o desafio
+Para rodar o ambiente, utilizei um container Docker, que pode ser configurado através do comando `docker compose up -d` (ou `docker-compose up -d`).
 
-Esse é um desafio, não um teste ou uma prova de faculdade, portanto não há uma única resposta certa.
+Ao executar o `docker compose`, ele automaticamente roda um script que configura o ambiente MySQL para uso da aplicação Node e roda a aplicação no ambiente `development`.
 
-Daremos a você alguns requisitos que devem ser cumpridos, e pelos quais você será avaliado, mas deixamos livre a escolha do método de solução.
+## Arquitetura
 
-O que nós esperamos aprender de você com o desafio:
+O projeto foi desenvolvido usando Node.js com TypeScript, e foi escolhido o framework Express para desenvolvimento da API. Para comunicar com o banco de dados, foi utilizado o Sequelize, e o banco de dados escolhido foi o MySQL.
 
-- Seu estilo de trabalho
-- Como você pensa e resolve problemas
-- Como você se comunica
+O projeto está dividido em duas pastas principais:
 
-O que nós esperamos que você aprenda sobre a Estoa:
+1. A pasta `api`, responsável pelos controllers, interfaces, middlewares, serviços e rotas
+2. A pasta `db`, responsável por conter os modelos utilizados, os script de migration e seed para criação e população das tabelas respectivamente, e o arquivo de configuração de conexão com o banco de dados.
 
-- Como nós trabalhamos como um time.
-- Tenha uma visão próxima dos desafios que enfrentamos no dia-a-dia.
+A aplicação principal se encontra dentro do arquivo `index.ts`. Além disso, o projeto também conta com o uso do Swagger UI para documentação da API, e o mesmo pode ser acessado via `http://localhost:{sua_porta_aqui}/docs`
 
-## Próximos passos
+## Funcionalidades
 
-1. Faça um _fork_ desse repositório para sua conta pessoal.
-2. As instruções do desafio se encontram no arquivo [`CHALLENGE.md`](/CHALLENGE.md).
-2. Resolva o desafio da forma que você julgar mais adequada.
-3. Preferencialmente utilize uma _branch_ chamada `desafio` ou com o seu nome (`nome-sobrenome`) para o desenvolvimento. E submeta o _pull-request_ para essa mesma _branch_.
-
-## Considerações
-
-- Nós não iremos limitar a sua escolha por ferramentas e bibliotecas, porém é de suma importância que use React.js, faça escolhas que sejam condizentes com o desafio apresentado. Para que utilizar uma bazuca para matar uma formiga?
-- Tente escrever o melhor código possível para que possamos avaliar o seu _pull-request_ com mais facilidade. E lembre-se: Você vai ter que explicar pessoalmente para nós depois.
-- Também leve em consideração que estamos availando como será o seu modo de trabalho no nosso dia a dia. Então, use as melhores práticas de semântica, estruturação, legibilidade e componentização.
-
-## Dúvidas?
-
-Ficou com alguma dúvida sobre como irá funcionar o processo? Entre em contato que nós te ajudaremos com o processo.
-
-**Boa sorte!**
+A API tem como proposta disponibilizar as funcionalidades padrão de CRUD (Create, Read, Update, Delete) para as entidades de Usuário e Plano. Além disso, a entidade de Usuário possui duas funcionalidades adicionais: é possível pesquisar usuários através do nome e da data de criação.
+Ao criar um usuário, ele recebe automaticamente o plano gratuito. Como adicional, foi feita uma implementação que não permite cadastrar mais de um usuário com o mesmo endereço de email.

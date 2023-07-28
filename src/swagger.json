@@ -1,0 +1,323 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "CRUD for Users and Plans",
+        "version": "1.0.0"
+    },
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Endpoints for managing users"
+        },
+        {
+            "name": "Plans",
+            "description": "Endpoints for managing plans"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Fetches all users available",
+                "responses": {
+                    "200": {
+                        "description": "The fetch operation was successful"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Users"],
+                "summary": "Creates a new user",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The create operation was successful"
+                    },
+                    "400": {
+                        "description": "Bad request, the provided data is invalid"
+                    }
+                }
+            }
+        },
+        "/users/name/{name}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Fetches all users with the given name",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The fetch operation was successful"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/users/date/{date}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Fetches all users created at a given date",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "The date which the user was created at (YYYY-MM-DD)",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The fetch operation was successful"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Gets a single user by the id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the user",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The fetch operation was successful"
+                    },
+                    "404": {
+                        "description": "Yser not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Users"],
+                "summary": "Deletes a user by the id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the user to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The delete operation was successful"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Users"],
+                "summary": "Updates an existing user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the plan to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The update operation was successful"
+                    },
+                    "400": {
+                        "description": "Bad request, the provided data is invalid"
+                    },
+                    "404": {
+                        "description": "Plan not found"
+                    }
+                }
+            }
+        },
+        "/plans": {
+            "get": {
+                "tags": ["Plans"],
+                "summary": "Fetches all plans available",
+                "responses": {
+                    "200": {
+                        "description": "The fetch operation was successful"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Plans"],
+                "summary": "Creates a new plan",
+                "parameters": [
+                    {
+                        "name": "plan",
+                        "in": "body",
+                        "description": "Plan object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Plan"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "The create operation was successful"
+                    },
+                    "400": {
+                        "description": "Bad request, the provided data is invalid"
+                    }
+                }
+            }
+        },
+        "/plans/{id}": {
+            "get": {
+                "tags": ["Plans"],
+                "summary": "Gets a single plan by the id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the plan",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The fetch operation was successful"
+                    },
+                    "404": {
+                        "description": "Plan not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Plans"],
+                "summary": "Deletes a plan by the id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the plan to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The delete operation was successful"
+                    },
+                    "404": {
+                        "description": "Plan not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Plans"],
+                "summary": "Updates an existing plan",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id of the plan to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "plan",
+                        "in": "body",
+                        "description": "Plan object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Plan"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The update operation was successful"
+                    },
+                    "400": {
+                        "description": "Bad request, the provided data is invalid"
+                    },
+                    "404": {
+                        "description": "Plan not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Plan": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "expiresIn": {
+                    "type": "integer"
+                }
+            },
+            "required": ["name", "price", "expiresIn"]
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "plan_type": {
+                    "type": "string"
+                }
+            },
+            "required": ["name", "email", "password"]
+        }
+    }
+}
