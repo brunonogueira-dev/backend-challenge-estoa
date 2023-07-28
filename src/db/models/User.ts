@@ -1,18 +1,18 @@
 import { Model, Optional, DataTypes } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
-import sequelizeConnection from "../config/config";
+import db from ".";
 
 interface UserAttributes {
     id: string;
     name: string;
     email: string;
     password: string;
-    type?: string;
+    planType?: string;
     createdAt: Date;
 }
 
 interface UserCreationAttributes
-    extends Optional<UserAttributes, "id" | "type" | "createdAt"> {}
+    extends Optional<UserAttributes, "id" | "planType" | "createdAt"> {}
 
 class User
     extends Model<UserAttributes, UserCreationAttributes>
@@ -22,7 +22,7 @@ class User
     public name!: string;
     public email!: string;
     public password!: string;
-    public type?: string;
+    public planType?: string;
     public createdAt!: Date;
 }
 
@@ -36,51 +36,17 @@ User.init(
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                notEmpty: {
-                    msg: "Name cannot be empty",
-                },
-                notNull: {
-                    msg: "User must have a name",
-                },
-            },
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
-            validate: {
-                notEmpty: {
-                    msg: "Email cannot be empty",
-                },
-                notNull: {
-                    msg: "User must have an email",
-                },
-            },
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                notEmpty: {
-                    msg: "Password cannot be empty",
-                },
-                notNull: {
-                    msg: "User must have a password",
-                },
-            },
         },
-        type: {
+        planType: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: {
-                    msg: "Type cannot be empty",
-                },
-                notNull: {
-                    msg: "User must have a type",
-                },
-            },
         },
         createdAt: {
             type: DataTypes.DATEONLY,
@@ -88,7 +54,8 @@ User.init(
         },
     },
     {
-        sequelize: sequelizeConnection,
+        sequelize: db,
+        modelName: "users",
         timestamps: true,
         freezeTableName: true,
         underscored: true,

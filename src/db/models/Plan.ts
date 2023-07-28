@@ -1,6 +1,6 @@
 import { Model, Optional, DataTypes } from "sequelize";
 import { v4 as uuidv4 } from "uuid";
-import sequelizeConnection from "../config/config";
+import db from ".";
 
 interface PlanAttributes {
     id: string;
@@ -73,7 +73,8 @@ Plan.init(
         },
     },
     {
-        sequelize: sequelizeConnection,
+        sequelize: db,
+        modelName: "plans",
         timestamps: true,
         freezeTableName: true,
         underscored: true,

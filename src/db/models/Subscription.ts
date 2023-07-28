@@ -1,6 +1,6 @@
 import { Model, Optional, DataTypes } from "sequelize";
-import sequelizeConnection from "../config/config";
 import { v4 as uuidv4 } from "uuid";
+import db from ".";
 import User from "./User";
 import Plan from "./Plan";
 
@@ -59,7 +59,8 @@ Subscription.init(
         },
     },
     {
-        sequelize: sequelizeConnection,
+        sequelize: db,
+        modelName: "subscriptions",
         timestamps: true,
         freezeTableName: true,
         underscored: true,
