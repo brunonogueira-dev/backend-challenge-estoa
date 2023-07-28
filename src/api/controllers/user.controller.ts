@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import UserService from "../services/user.service";
 import { IUser, IUserInput } from "../interfaces";
+import { validationResult } from "express-validator";
 
 export default class UserController {
     private userService: UserService;
@@ -73,6 +74,10 @@ export default class UserController {
         res: Response,
         next: NextFunction
     ) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         const input: IUserInput = req.body;
         try {
             const id: string = await this.userService.createUser(input);

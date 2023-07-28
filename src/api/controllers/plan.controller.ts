@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import PlanService from "../services/plan.service";
 import { IPlan, IPlanInput } from "../interfaces";
+import { validationResult } from "express-validator";
 
 export default class PlanController {
     private planService: PlanService;
@@ -37,6 +38,10 @@ export default class PlanController {
         res: Response,
         next: NextFunction
     ) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         const input: IPlanInput = req.body;
         const id: string = await this.planService.createPlan(input);
         res.json({ id });
