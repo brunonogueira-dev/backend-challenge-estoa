@@ -1,12 +1,13 @@
 import { Model, Optional, DataTypes } from "sequelize";
-import sequelizeConnection from "../config";
+import sequelizeConnection from "../config/config";
+import { v4 as uuidv4 } from "uuid";
 import User from "./User";
 import Plan from "./Plan";
 
 interface SubscriptionAttributes {
-    id: number;
-    userId: number;
-    planId: number;
+    id: string;
+    userId: string;
+    planId: string;
     expirationDate: Date;
     createdAt: Date;
 }
@@ -18,9 +19,9 @@ class Subscription
     extends Model<SubscriptionAttributes, SubscriptionCreationAttributes>
     implements SubscriptionAttributes
 {
-    public id!: number;
-    public userId!: number;
-    public planId!: number;
+    public id!: string;
+    public userId!: string;
+    public planId!: string;
     public expirationDate!: Date;
     public createdAt!: Date;
 }
@@ -28,33 +29,32 @@ class Subscription
 Subscription.init(
     {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            autoIncrement: true,
-            allowNull: false,
+            type: DataTypes.UUID,
+            defaultValue: uuidv4(),
             primaryKey: true,
         },
         userId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false,
+            type: DataTypes.UUID,
+            defaultValue: uuidv4(),
             references: {
                 model: User,
                 key: "id",
             },
         },
         planId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false,
+            type: DataTypes.UUID,
+            defaultValue: uuidv4(),
             references: {
                 model: Plan,
                 key: "id",
             },
         },
         expirationDate: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false,
         },
         createdAt: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false,
         },
     },
