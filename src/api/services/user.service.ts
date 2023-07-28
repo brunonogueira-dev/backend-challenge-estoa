@@ -28,7 +28,7 @@ export default class UserService {
     public async createUser(input: IUserInput): Promise<string> {
         const { id } = await User.create({
             ...input,
-            type: input.type || "free",
+            planType: input.planType || "free",
         });
 
         const plan: IPlan | null = await Plan.findOne({
@@ -61,7 +61,7 @@ export default class UserService {
     ): Promise<string | null> {
         const updatedUser = await User.update({ ...input }, { where: { id } });
         const userPlan: IPlan | null = await Plan.findOne({
-            where: { name: input.type },
+            where: { name: input.planType },
         });
 
         if (userPlan) {
