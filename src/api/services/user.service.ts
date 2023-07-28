@@ -1,34 +1,31 @@
-import { Plan, User, Subscription } from "../../db/models";
-import {
-    IUser,
-    IUserInput,
-    IPlan,
-    IPlanInput,
-    ISubscription,
-} from "../interfaces";
+import User from "../../db/models/User";
+import Plan from "../../db/models/Plan";
+import Subscription from "../../db/models/Subscription";
+import { IUser, IUserInput, IPlan, ISubscription } from "../interfaces";
 
-export default class userService {
-    public async listAll(): Promise<IUser[]> {
-        const users: IUser[] = await User.findAll();
-        return users;
+export default class UserService {
+    public async listAllUsers(): Promise<IUser[]> {
+        return User.findAll();
     }
 
-    public async findById(id: number): Promise<IUser | null> {
-        const user: IUser | null = await User.findByPk(id);
-        return user ? user : null;
+    public async findUserById(id: string): Promise<IUser | null> {
+        return User.findByPk(id);
     }
 
-    public async findByName(name: string): Promise<IUser[]> {
-        const users = await this.listAll();
+    public async findUserByName(name: string): Promise<IUser[]> {
+        const users = await this.listAllUsers();
         return users.filter((user) => user.name === name);
     }
 
-    public async findByDate(date: string): Promise<IUser[]> {
-        const users = await this.listAll();
-        return users.filter((user) => user.createdAt === new Date(date));
+    public async findUserByDate(date: string): Promise<IUser[]> {
+        const targetDate = new Date(date);
+        const users = await this.listAllUsers();
+        return users.filter(
+            (user) => user.createdAt.getTime() === targetDate.getTime()
+        );
     }
 
-    public async createUser(input: IUserInput): Promise<number> {
+    public async createUser(input: IUserInput): Promise<string> {
         const { id } = await User.create({
             ...input,
             type: input.type || "free",
@@ -53,13 +50,13 @@ export default class userService {
         return id;
     }
 
-    public async deleteUser(id: number) {
+    public async deleteUser(id: string) {
         const response = await User.destroy({ where: { id } });
-        return response ? "Usuário deletado com sucesso" : null;
+        return response ? "User deleted succesfully" : null;
     }
 
     public async updateUser(
-        id: number,
+        id: string,
         input: IUserInput
     ): Promise<string | null> {
         const updatedUser = await User.update({ ...input }, { where: { id } });
@@ -72,13 +69,13 @@ export default class userService {
         }
 
         if (updatedUser[0] === 1) {
-            return "Usuário atualizado com sucesso";
+            return `Updated user with ID ${id}`;
         }
 
         return null;
     }
 
-    public async updateSubscription(id: number, plan: IPlan) {
+    public async updateSubscription(id: string, plan: IPlan) {
         const subscription: ISubscription | null = await Subscription.findOne({
             where: { userId: id },
         });
